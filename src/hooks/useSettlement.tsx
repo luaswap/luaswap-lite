@@ -62,7 +62,7 @@ const useSettlement = () => {
     }, []);
 
     const calculateLimitOrderFee = (fromAmount: ethers.BigNumber) => {
-        return fromAmount.mul(2).div(1000);
+        return fromAmount.mul(4).div(1000);
     };
 
     const calculateLimitOrderReturn = (
