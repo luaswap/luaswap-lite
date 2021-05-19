@@ -67,5 +67,4 @@ buck-out/
 web-build/
 
 .env
-package.json
 yarn.lock
