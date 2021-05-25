@@ -17,11 +17,11 @@ const Content: React.FunctionComponent<ViewProps> = props => {
                 {                   
                     backgroundColor: background,
                     // flexDirection: "row",
-                    width: IS_DESKTOP ? 768 : SCREEN_WIDTH - Spacing.large,
+                    width: IS_DESKTOP ? 1200 : SCREEN_WIDTH - Spacing.large,
                     marginLeft: "auto",
                     marginRight: "auto",
-                    marginTop: Spacing.huge + SUB_MENU_HEIGHT,
-                    marginBottom: Spacing.large,
+                    // marginTop: Spacing.huge + SUB_MENU_HEIGHT,
+                    // marginBottom: Spacing.large,
                     padding: IS_DESKTOP ? Spacing.normal : Spacing.small + Spacing.tiny
                 },
                 props.style

@@ -53,9 +53,9 @@ const HomeScreen = () => {
     const totalValue = sum(state.tokens) + sum(state.lpTokens) + sum(state.pools);
     return (
         <Screen>
-            <Container>
+            <Container style={{marginTop: 50}}>
                 <BackgroundImage />
-                <Content style={{ paddingBottom: Spacing.huge, borderRadius:16, borderStyle: 'solid', borderWidth: 1 ,borderColor:border }}>
+                <Content style={{paddingBottom: Spacing.huge, borderRadius:16, borderStyle: 'solid', borderWidth: 1 ,borderColor:border }}>
                     <Title text={t("total-value")} style={{ flex: 1, marginTop: Spacing.normal }} />
                     <Title
                         text={loading ? t("fetching") : formatUSD(totalValue, 4)}

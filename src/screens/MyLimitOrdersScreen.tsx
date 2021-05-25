@@ -41,16 +41,16 @@ const MyLimitOrdersScreen = () => {
     const t = useTranslation();
     return (
         <Screen>
+            <SwapSubMenu />
             <Container>
                 <BackgroundImage />
                 <SwapContainer>
-                    <Title text={t("my-orders")} />
-                    <Text style={{marginBottom: 40}} light={true}>{t("my-orders-desc")}</Text>
+                    {/* <Title text={t("my-orders")} /> */}
+                    <Text style={{marginBottom: 40, textAlign: "center"}} light={true}>{t("my-orders-desc")}</Text>
                     <MyLimitOrders />
                 </SwapContainer>
                 {Platform.OS === "web" && <WebFooter />}
-            </Container>
-            <SwapSubMenu />
+            </Container>            
         </Screen>
     );
 };

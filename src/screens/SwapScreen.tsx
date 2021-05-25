@@ -69,42 +69,64 @@ const SwapScreen = () => {
         //     {/* <SwapSubMenu /> */}
         // </Screen>
         <Screen>
+            <SwapSubMenu />
             <Container>
                 <BackgroundImage />
-                <Content>
-                    <Title text={t("new-order")} />
-                    <Text style={{marginBottom: 40}} light={true}>{t("new-order-desc")}</Text>
+                <Text style={{marginBottom: 40, textAlign: "center"}} light={true}>{t("new-order-desc")}</Text>
+       
+                <SwapContainer>
+                    {/* <Title text={t("new-order")} /> */}                    
                     <Swap />
-                </Content>
-                {Platform.OS === "web" && <WebFooter />}
-            </Container>
-            <SwapSubMenu />
+                </SwapContainer>
+                {/* {Platform.OS === "web" && <WebFooter />} */}
+            </Container>            
         </Screen>
     );
 };
 
 const Swap = () => {
     const { chainId } = useContext(EthersContext);
-    const {border} = useColors()
+    const {border, backgroundLight, backgroundLightBox} = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useSwapState();
     return (
-        <View style={{ borderStyle: 'solid', borderWidth: 1, borderColor: border, padding: 30, borderRadius: 10 }}>
-            <OrderTypeSelect state={state} />
-            <Border />
-            <FromTokenSelect state={state} />
-            <Border />
-            <ToTokenSelect state={state} />
-            <Border />
-            <AmountInput state={state} />
-            {state.orderType === "limit" && (
-                <View style={{ marginTop: Spacing.small }}>
-                    <Border />
-                    <PriceInput state={state} />
+        <View>
+            <FlexView style={{flexDirection: IS_DESKTOP ? 'row' : 'column'}}>
+                <View style={{
+                    flex: IS_DESKTOP ? 4 : 1,
+                    // borderStyle: 'solid', borderWidth: 1,
+                    // borderColor: border,
+                    padding: 30,
+                    borderRadius: 20,
+                    backgroundColor: backgroundLight
+                }}>
+                    
+                    <OrderTypeSelect state={state} />
+                    <View style={{
+                        backgroundColor: backgroundLightBox,
+                        padding: 20,
+                        borderRadius: 15,
+                        marginHorizontal: 10
+                    }}>
+                        {/* <Border /> */}
+                        <FromTokenSelect state={state} />
+                        {/* <Border /> */}
+                        <ToTokenSelect state={state} />
+                        {/* <Border /> */}
+                        <AmountInput state={state} />
+                        {state.orderType === "limit" && (
+                            <View style={{ marginTop: Spacing.small }}>
+                                <Border />
+                                <PriceInput state={state} />
+                            </View>
+                        )}
+                        {!state.loading && !state.trade && <NoPairNotice state={state} />}
+                    </View>
                 </View>
-            )}
-            {!state.loading && !state.trade && <NoPairNotice state={state} />}
-            <TradeInfo state={state} />
+                <View style={{flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0}}>
+                    <TradeInfo state={state} />
+                </View>
+            </FlexView>
         </View>
     );
 };
@@ -267,8 +289,8 @@ const NoPairNotice = ({ state }: { state: SwapState }) => {
 
 const TradeInfo = ({ state }: { state: SwapState }) => {
     /* const { chainId } = useContext(EthersContext); */
-    const t = useTranslation();
-    if (isNativeAndWrappedNativePair(state.fromToken, state.toToken)) return <WrapInfo state={state} />;
+    const t = useTranslation()
+    if (isNativeAndWrappedNativePair(state.fromToken, state.toToken)) return <WrapInfo state={state} />
     const disabled =
         state.fromSymbol === "" ||
         state.toSymbol === "" ||
@@ -413,7 +435,8 @@ const LimitOrderInfo = ({ state }: { state: SwapState }) => {
         <View>
             <Text
                 disabled={isEmptyValue(state.limitOrderReturn)}
-                style={{ fontSize: 28, marginBottom: Spacing.normal }}>
+                fontWeight={"bold"}
+                style={{ fontSize: 24, marginBottom: Spacing.normal }}>
                 {isEmptyValue(state.limitOrderReturn) ? "N/A" : state.limitOrderReturn + " " + state.toSymbol}
             </Text>
             <Meta

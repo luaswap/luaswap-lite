@@ -3,8 +3,8 @@ import { View, ViewStyle } from "react-native";
 
 import { GlobalContext } from "../context/GlobalContext";
 import useColors from "../hooks/useColors";
-// import SvgBackgroundDark from "./svg/SvgBackgroundDark";
-// import SvgBackgroundLight from "./svg/SvgBackgroundLight";
+import SvgBackgroundDark from "./svg/SvgBackgroundDark";
+import SvgBackgroundLight from "./svg/SvgBackgroundLight";
 
 const BackgroundImage = ({ style }: { style?: ViewStyle }) => {
     const { darkMode } = useContext(GlobalContext);

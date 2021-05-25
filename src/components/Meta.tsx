@@ -25,8 +25,8 @@ const Meta: FC<MetaProps> = props => {
         ? props.text + (props.suffix ? " " + props.suffix : "")
         : t("fetching");
     return (
-        <FlexView style={{ justifyContent: "space-between", marginTop: 4 }}>
-            <Text note={!IS_DESKTOP} fontWeight={"bold"} style={{ color: props.disabled ? placeholder : textMedium }}>
+        <FlexView style={{ justifyContent: "space-between", marginTop: 4, paddingBottom: 10 }}>
+            <Text note={!IS_DESKTOP} style={{ color: props.disabled ? placeholder : textMedium }}>
                 {props.label}
             </Text>
             <Text
@@ -34,7 +34,7 @@ const Meta: FC<MetaProps> = props => {
                 onPress={props.url ? onPress : undefined}
                 style={{
                     color: props.disabled ? placeholder : props.text ? textMedium : textLight,
-                    textDecorationLine: props.url ? "underline" : "none"
+                    textDecorationLine: props.url ? "underline" : "none",                    
                 }}>
                 {text}
             </Text>

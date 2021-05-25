@@ -37,7 +37,7 @@
   "pair-not-created": "{{fromSymbol}}-{{toSymbol}} pair hasn't been created yet.",
   "price": "Price",
   "price-impact": "Price Impact",
-  "fee-amount": "Fee (0.20%)",
+  "fee-amount": "Fee (0.40%)",
   "swap": "Swap",
   "swap-": "Swap {{symbol}}",
   "wrap": "Wrap",

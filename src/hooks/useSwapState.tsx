@@ -52,15 +52,6 @@ const useSwapState: () => SwapState = () => {
     const [swapping, setSwapping] = useState(false);
     const [creatingOrder, setCreatingOrder] = useState(false);
 
-    const getProvider = () => {
-        switch (chainId) {
-            case 88: 
-                return TOMOCHAIN_MAINET_PROVIDER
-            default:
-                return provider
-        }
-    };
-
     useEffect(() => {
         if (!orderType) {
             state.setFromSymbol("");

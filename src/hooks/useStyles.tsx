@@ -10,8 +10,8 @@ const useStyles = () => {
         (attrs?: { color?: string; radius?: number }) => ({
             borderColor: attrs?.color || borderDark,
             borderWidth: 1,
-            borderRadius: attrs?.radius || 8,
-            padding: Spacing.small
+            borderRadius: attrs?.radius || 10,
+            // padding: Spacing.small
         }),
         []
     );

@@ -108,20 +108,25 @@ const WebSubMenu: FC<WebSubMenuProps> = props => {
     return (
         <View
             style={{
-                position: "fixed",
-                top: 64,
-                height: SUB_MENU_HEIGHT,
-                width: "100%",
-                backgroundColor: submenu
+                // position: "fixed",
+                // top: 64,
+                // height: SUB_MENU_HEIGHT,
+                // width: "100%",
+                // backgroundColor: submenu
+                paddingTop: 50,
+                paddingBottom: 20
             }}>
             <FlexView
                 style={{
-                    width: IS_DESKTOP ? HEADER_WIDTH : "100%",
+                    // width: IS_DESKTOP ? HEADER_WIDTH : "100%",
                     marginTop: 2,
-                    paddingHorizontal: Spacing.normal,
+                    paddingHorizontal: Spacing.tiny,
+                    paddingVertical: Spacing.tiny,
+                    borderRadius: 50,
                     alignSelf: "center",
-                    justifyContent: "flex-end",
-                    alignItems: "center"
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#353535"
                 }}>
                 {props.items.map(item => (
                     <MenuItem key={item.path} {...item} />
@@ -132,23 +137,32 @@ const WebSubMenu: FC<WebSubMenuProps> = props => {
 };
 
 const MenuItem = ({ title, path }) => {
-    const { accent, textLight } = useColors();
+    const { accent, textLight, border } = useColors();
     const match = useRouteMatch(path);
     const active = match?.isExact;
     return (
         <Link
             to={path}
             style={{
-                marginLeft: Spacing.small,
+                // marginLeft: Spacing.small,
                 paddingTop: Spacing.tiny,
                 paddingBottom: Spacing.tiny,
-                textDecoration: "none"
+                paddingLeft: Spacing.large,
+                paddingRight: Spacing.large,
+                textDecoration: "none",
+                borderRadius: 50,
+                backgroundColor: active ? '#464646' : '#353535',
+                // borderWidth: 1,
+                // borderColor: border,
+                // borderStyle: active ? 'solid': ''
             }}>
             <Text
                 fontWeight={active ? "regular" : "light"}
                 style={{
-                    fontSize: 13,
-                    color: active ? accent : textLight
+                    fontSize: 15,
+                    color: active ? accent : textLight,
+                    textTransform: "uppercase",
+                    fontWeight: 'bold'
                 }}>
                 {title}
             </Text>

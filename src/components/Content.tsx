@@ -21,8 +21,8 @@ const Content: React.FunctionComponent<ViewProps> = props => {
                     width: IS_DESKTOP ? DESKTOP_CONTENT_WIDTH : SCREEN_WIDTH - Spacing.large,
                     marginLeft: "auto",
                     marginRight: "auto",
-                    marginTop: Spacing.huge + SUB_MENU_HEIGHT,
-                    marginBottom: Spacing.large,
+                    // marginTop: Spacing.huge + SUB_MENU_HEIGHT,
+                    // marginBottom: Spacing.large,
                     padding: IS_DESKTOP ? Spacing.normal : Spacing.small + Spacing.tiny
                 },
                 props.style

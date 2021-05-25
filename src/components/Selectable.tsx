@@ -15,7 +15,7 @@ export interface SelectableProps extends ViewProps {
 const Selectable: FC<SelectableProps> = props => {
     const { borderDark, accent, overlay } = useColors();
     const { border } = useStyles();
-    const { background, backgroundLight } = useColors();
+    const { background, backgroundLightBox } = useColors();
     return (
         <Hoverable style={props.containerStyle}>
             {({ hovered }) => (
@@ -24,8 +24,9 @@ const Selectable: FC<SelectableProps> = props => {
                         {...props}
                         style={[
                             {
-                                ...border({ color: props.selected ? accent : borderDark }),
-                                backgroundColor: hovered && !props.disabled ? backgroundLight : background
+                                ...border({ color: props.selected ? accent : backgroundLightBox }),
+                                // backgroundColor: hovered && !props.disabled ? backgroundLight : background
+                                // backgroundColor: backgroundLight
                             },
                             props.style
                         ]}

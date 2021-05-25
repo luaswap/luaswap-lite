@@ -46,6 +46,7 @@ const TokenSelect: FC<TokenSelectProps> = props => {
         props.onChangeSymbol(t.symbol);
     };
     const hidden = (t: Token) => {
+        
         if (query.length > 0) {
             return !t.symbol.toLowerCase().includes(query) && !t.name.toLowerCase().includes(query);
         }
@@ -53,6 +54,8 @@ const TokenSelect: FC<TokenSelectProps> = props => {
     };
     useEffect(() => setSearch(""), [props.symbol]);
     useDelayedEffect(() => setQuery(search.trim().toLowerCase()), 300, [search]);
+
+    console.log(token)
     return (
         <View style={props.style}>
             <Expandable title={props.title} expanded={!props.symbol} onExpand={() => props.onChangeSymbol("")}>
@@ -145,7 +148,7 @@ const TokenItem = (props: {
                         <TokenAmount
                             token={props.token}
                             disabled={props.disabled}
-                            style={{ flex: 1, textAlign: "right" }}
+                            style={{ flex: 1, textAlign: "right", fontWeight: "bold" }}
                         />
                         {IS_DESKTOP && <TokenSymbol token={props.token} disabled={props.disabled} />}
                     </FlexView>

@@ -2,15 +2,16 @@ export const Colors = {
     common: {
         white: "#ffffff",
         transparent: "#ffffff00",
-        primary: "#FA52A0",
+        primary: "#FABC46",
         secondary: "#27B0E6",
         green: "#32CD32",
         red: "#FF0000",
         twitter: "#1da1f2",
-        facebook: "#3B5998"
+        facebook: "#3B5998",
+        backgroundLightBox: "#464646"
     },
     light: {
-        accent: "#FA52A0",
+        accent: "#FABC46",
         header: "#ffffffb8",
         submenu: "#ffffff80",
         background: "#ffffff",
@@ -27,18 +28,18 @@ export const Colors = {
     },
     dark: {
         accent: "#FABC46",
-        header: "#313535",//"#0D0E20",
+        header: "#282828",//"#0D0E20",
         submenu: "#242424",
-        background: "#242828",//"#0e0f23",
-        backgroundLight: "#242828",
-        border: "#ffffff33",
+        background: "#282828",//"#0e0f23",
+        backgroundLight: "#353535",        
+        border: "#6E6E6E",
         borderDark: "#666666",
         textDark: "#d5d1cc",
         textMedium: "#cccccc",
         textLight: "#aaaaaa",
         disabled: "#aaaaaa80",
-        shadow: "#03080c",
+        shadow: "#353535",
         placeholder: "#666666",
-        overlay: "#000000c0"
+        overlay: "#353535"
     }
 };

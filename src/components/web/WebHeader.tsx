@@ -31,8 +31,8 @@ const WebHeader: FC<WebHeaderProps> = props => {
                 height: HEADER_HEIGHT,
                 paddingBottom: Spacing.small,
                 backgroundColor: header,
-                borderBottomWidth: 1,
-                borderColor: borderDark
+                // borderBottomWidth: 1,
+                // borderColor: borderDark
             }}>
             <FlexView
                 style={{
