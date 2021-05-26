@@ -89,6 +89,7 @@ const Swap = () => {
     const {border, backgroundLight, backgroundLightBox} = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useSwapState();
+    // console.log(state)
     return (
         <View>
             <FlexView style={{flexDirection: IS_DESKTOP ? 'row' : 'column'}}>
@@ -152,9 +153,9 @@ const OrderTypeSelect = ({ state }: { state: SwapState }) => {
 const FromTokenSelect = ({ state }: { state: SwapState }) => {
     const t = useTranslation();
     const { tokens, customTokens } = useContext(EthersContext);
-    if (!state.orderType) {
-        return <Heading text={t("token-to-sell")} disabled={true} />;
-    }
+    // if (!state.orderType) {
+    //     return <Heading text={t("token-to-sell")} disabled={true} />;
+    // }
     const ETH = tokens ? tokens.find(token => isNativeToken(token)) : null;
     return (
         <View>
@@ -176,9 +177,9 @@ const FromTokenSelect = ({ state }: { state: SwapState }) => {
 
 const ToTokenSelect = ({ state }: { state: SwapState }) => {
     const t = useTranslation();
-    if (!state.orderType || !state.fromSymbol) {
-        return <Heading text={t("token-to-buy")} disabled={true} />;
-    }
+    // if (!state.orderType || !state.fromSymbol) {
+    //     return <Heading text={t("token-to-buy")} disabled={true} />;
+    // }
     const limit = state.orderType === "limit";
     const onChangeSymbol = (symbol: string) => {
         state.setToSymbol(limit && symbol === "TOMO" ? "WTOMO" : symbol);
@@ -198,9 +199,9 @@ const ToTokenSelect = ({ state }: { state: SwapState }) => {
 
 const AmountInput = ({ state }: { state: SwapState }) => {
     const t = useTranslation();
-    if (!state.fromSymbol || !state.toSymbol) {
-        return <Heading text={t("amount")} disabled={true} />;
-    }
+    // if (!state.fromSymbol || !state.toSymbol) {
+    //     return <Heading text={t("amount")} disabled={true} />;
+    // }
     return (
         <View>
             <Heading text={state.fromSymbol + " " + t("amount")} />

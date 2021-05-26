@@ -7,6 +7,8 @@ import useDelayedEffect from "../hooks/useDelayedEffect";
 import useTranslation from "../hooks/useTranslation";
 import Token from "../types/Token";
 import TokenWithValue from "../types/TokenWithValue";
+import Button from "./Button";
+import ButtonGroup from "./ButtonGroup";
 import CloseIcon from "./CloseIcon";
 import Expandable from "./Expandable";
 import FlexView from "./FlexView";
@@ -36,6 +38,7 @@ const TokenSelect: FC<TokenSelectProps> = props => {
     const { tokens, addCustomToken } = useContext(EthersContext);
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("");
+    const [showToken, setShowToken] = useState(null)
     const token = useMemo(() => tokens.find(t => t.symbol === props.symbol), [tokens, props.symbol]);
     const onSelectToken = t => props.onChangeSymbol(t.symbol);
     const onUnselectToken = () => props.onChangeSymbol("");
@@ -52,27 +55,46 @@ const TokenSelect: FC<TokenSelectProps> = props => {
         }
         return props.hidden?.(t) || false;
     };
-    useEffect(() => setSearch(""), [props.symbol]);
+    useEffect(() => {
+        setSearch("")
+    }, [props.symbol]);
     useDelayedEffect(() => setQuery(search.trim().toLowerCase()), 300, [search]);
 
-    console.log(token)
+    console.log(props.symbol)
     return (
         <View style={props.style}>
+            {/* <Button onPress={() => setShowToken(!showToken)}>
+                Select Token
+            </Button> */}
             <Expandable title={props.title} expanded={!props.symbol} onExpand={() => props.onChangeSymbol("")}>
+            {/* {showToken  ? ( */}
+            {/* <View> */}
                 <TokenSearch text={search} onChangeText={setSearch} tokens={tokens} onAddToken={onAddToken} />
                 <TokenList disabled={props.disabled} hidden={hidden} onSelectToken={onSelectToken} />
+            {/* </View>) : ''} */}
             </Expandable>
             {token && <TokenItem token={token} selected={true} onSelectToken={onUnselectToken} selectable={true} />}
         </View>
     );
 };
 
+const TokenSelected = (props: {
+    onSelectToken: (token: Token) => void,
+    showTokenList: boolean,
+}) => {
+    return (
+        <View>
+
+        </View>
+    )
+}
 const TokenList = (props: {
     onSelectToken: (token: Token) => void;
     disabled?: (token: Token) => boolean;
     hidden?: (token: Token) => boolean;
 }) => {
     const { loadingTokens, tokens } = useContext(EthersContext);
+
     const renderItem = useCallback(
         ({ item }) => {
             return (
