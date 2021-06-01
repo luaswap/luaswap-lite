@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IS_DESKTOP, Spacing } from "../constants/dimension";
+import { Spacing } from "../constants/dimension";
 import Token from "../types/Token";
 import Text from "./Text";
 
@@ -12,7 +12,7 @@ const TokenName = (props: { token: Token; disabled?: boolean }) => (
         style={{ marginLeft: Spacing.small, width: 180 }}
         fontWeight={"bold"}
         disabled={props.disabled}>
-        {IS_DESKTOP ? props.token.name : props.token.symbol}
+        {props.token.symbol}
     </Text>
 );
 

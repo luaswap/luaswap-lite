@@ -12,10 +12,12 @@ import ButtonGroup from "./ButtonGroup";
 import CloseIcon from "./CloseIcon";
 import Expandable from "./Expandable";
 import FlexView from "./FlexView";
+import Heading from "./Heading";
 import { ITEM_SEPARATOR_HEIGHT } from "./ItemSeparator";
 import Loading from "./Loading";
 import Selectable from "./Selectable";
 import SelectIcon from "./SelectIcon";
+import SelectTokenable from "./SelectTokenable";
 import Text from "./Text";
 import TokenAmount from "./TokenAmount";
 import TokenLogo from "./TokenLogo";
@@ -38,7 +40,6 @@ const TokenSelect: FC<TokenSelectProps> = props => {
     const { tokens, addCustomToken } = useContext(EthersContext);
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("");
-    const [showToken, setShowToken] = useState(null)
     const token = useMemo(() => tokens.find(t => t.symbol === props.symbol), [tokens, props.symbol]);
     const onSelectToken = t => props.onChangeSymbol(t.symbol);
     const onUnselectToken = () => props.onChangeSymbol("");
@@ -49,45 +50,48 @@ const TokenSelect: FC<TokenSelectProps> = props => {
         props.onChangeSymbol(t.symbol);
     };
     const hidden = (t: Token) => {
-        
+
         if (query.length > 0) {
             return !t.symbol.toLowerCase().includes(query) && !t.name.toLowerCase().includes(query);
         }
         return props.hidden?.(t) || false;
     };
+
     useEffect(() => {
         setSearch("")
     }, [props.symbol]);
     useDelayedEffect(() => setQuery(search.trim().toLowerCase()), 300, [search]);
-
-    console.log(props.symbol)
     return (
         <View style={props.style}>
-            {/* <Button onPress={() => setShowToken(!showToken)}>
-                Select Token
-            </Button> */}
             <Expandable title={props.title} expanded={!props.symbol} onExpand={() => props.onChangeSymbol("")}>
-            {/* {showToken  ? ( */}
-            {/* <View> */}
                 <TokenSearch text={search} onChangeText={setSearch} tokens={tokens} onAddToken={onAddToken} />
-                <TokenList disabled={props.disabled} hidden={hidden} onSelectToken={onSelectToken} />
-            {/* </View>) : ''} */}
+                <View style={{
+                    position: 'absolute',
+                    width: '100%',
+                    backgroundColor: '#353535',
+                    borderRadius: 15,
+                    padding: 15,
+                    top: 55
+                }}>
+                    <TokenList disabled={props.disabled} hidden={hidden} onSelectToken={onSelectToken} />
+                </View>
             </Expandable>
             {token && <TokenItem token={token} selected={true} onSelectToken={onUnselectToken} selectable={true} />}
         </View>
     );
 };
 
-const TokenSelected = (props: {
-    onSelectToken: (token: Token) => void,
-    showTokenList: boolean,
-}) => {
-    return (
-        <View>
+// const TokenSelected = (props: {
+//     onSelectToken: (token: Token) => void,
+//     showTokenList: boolean,
+// }) => {
+//     return (
+//         <View>
+//             <Text>test</Text>
 
-        </View>
-    )
-}
+//         </View>
+//     )
+// }
 const TokenList = (props: {
     onSelectToken: (token: Token) => void;
     disabled?: (token: Token) => boolean;
@@ -145,12 +149,12 @@ const TokenItem = (props: {
         props.onSelectToken(props.token);
     }, [props.onSelectToken, props.token]);
     return (
-        <Selectable
+        <SelectTokenable
             selected={props.selected}
             onPress={onPress}
             disabled={props.disabled || props.selectable}
             containerStyle={{
-                marginBottom: ITEM_SEPARATOR_HEIGHT
+                // marginBottom: ITEM_SEPARATOR_HEIGHT
             }}>
             <FlexView style={{ alignItems: "center" }}>
                 <TokenLogo token={props.token} disabled={props.disabled} />
@@ -172,12 +176,12 @@ const TokenItem = (props: {
                             disabled={props.disabled}
                             style={{ flex: 1, textAlign: "right", fontWeight: "bold" }}
                         />
-                        {IS_DESKTOP && <TokenSymbol token={props.token} disabled={props.disabled} />}
+                        {/* {IS_DESKTOP && <TokenSymbol token={props.token} disabled={props.disabled} />} */}
                     </FlexView>
                 </View>
-                {props.selected ? <CloseIcon /> : <SelectIcon />}
+                {props.selected && <CloseIcon />}
             </FlexView>
-        </Selectable>
+        </SelectTokenable>
     );
 };
 

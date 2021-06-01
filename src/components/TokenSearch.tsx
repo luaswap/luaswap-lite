@@ -69,12 +69,12 @@ const TokenSearch: FC<TokenSearchProps> = props => {
                     inputStyle={{ marginHorizontal: Spacing.tiny, fontSize: props.text ? 20 : 16 }}
                     inputContainerStyle={{ borderBottomWidth: 0, marginRight: loading ? 32 : 0 }}
                     labelStyle={{ height: 0 }}
-                    containerStyle={{
-                        ...border(),
-                        paddingHorizontal: Spacing.tiny,
-                        paddingTop: 12,
-                        paddingBottom: 0
-                    }}
+                // containerStyle={{
+                //     ...border(),
+                //     paddingHorizontal: Spacing.tiny,
+                //     paddingTop: 12,
+                //     paddingBottom: 0
+                // }}
                 />
                 {props.onAddToken && loading && <Loading />}
             </FlexView>

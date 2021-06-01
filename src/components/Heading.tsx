@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { TextStyle } from "react-native";
+import { TextStyle, View } from "react-native";
 
 import { IS_DESKTOP, Spacing } from "../constants/dimension";
 import useColors from "../hooks/useColors";
@@ -19,7 +19,7 @@ interface HeadingProps {
 const Heading: FC<HeadingProps> = props => {
     const { accent } = useColors();
     return (
-        <FlexView style={{ alignItems: "flex-end", height: 32, marginBottom: props.disabled ? 0 : Spacing.small }}>
+        <View style={{ alignItems: "flex-start", height: 32, marginBottom: props.disabled ? 0 : Spacing.small }}>
             <Text
                 medium={true}
                 fontWeight={props.fontWeight || "bold"}
@@ -27,7 +27,7 @@ const Heading: FC<HeadingProps> = props => {
                 style={[{ flex: 1, fontSize: IS_DESKTOP ? 20 : 18, paddingBottom: Spacing.tiny }, props.style]}>
                 {props.text}
             </Text>
-            {props.buttonText && (
+            {/* {props.buttonText && (
                 <Button
                     type={"clear"}
                     size={"small"}
@@ -36,8 +36,8 @@ const Heading: FC<HeadingProps> = props => {
                     color={accent}
                     buttonStyle={{ paddingHorizontal: Spacing.tiny }}
                 />
-            )}
-        </FlexView>
+            )} */}
+        </View>
     );
 };
 

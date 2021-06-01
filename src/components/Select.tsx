@@ -33,7 +33,7 @@ const Select: FC<SelectProps> = props => {
             {/* <Expandable title={props.title} expanded={!props.option} onExpand={() => props.setOption()}> */}
             <FlexView style={{width: '100%', flexDirection: IS_DESKTOP ? 'row' : 'column'}}>
                 {props.options.map(option => (
-                    <View style={{
+                    <View key={option.key} style={{
                         flex: 1,
                         borderRadius: 15,                        
                         justifyContent: "space-between",
@@ -77,7 +77,7 @@ const Item = (props: {
                         {props.option.description}
                     </Text>
                 </View>
-                {props.selected ? <CloseIcon /> : <SelectIcon />}
+                {/* {props.selected ? <CloseIcon /> : <SelectIcon />} */}
             </FlexView>
         </Selectable>
     );

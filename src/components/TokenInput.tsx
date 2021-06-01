@@ -51,15 +51,16 @@ const TokenInput: FC<TokenInputProps> = props => {
                     placeholder={"0.0"}
                     keyboardType={"numeric"}
                     autoFocus={props.autoFocus || false}
-                    inputStyle={{ marginHorizontal: Spacing.tiny }}
+                    // inputStyle={{ marginHorizontal: Spacing.tiny }}
                     inputContainerStyle={{ borderBottomWidth: 0 }}
                     labelStyle={{ fontFamily: "light", height: props.label ? "auto" : 0 }}
-                    containerStyle={{
-                        ...border(),
-                        paddingHorizontal: Spacing.tiny,
-                        paddingTop: 15,
-                        paddingBottom: 2
-                    }}
+                // containerStyle={{
+                //     ...border(),
+                //     paddingHorizontal: Spacing.tiny,
+                //     paddingVertical: 15
+                //     // paddingTop: 15,
+                //     // paddingBottom: 2
+                // }}
                 />
                 {props.token?.balance?.gt(0) && !props.hideMaxButton && (
                     <MaxButton
@@ -87,7 +88,7 @@ const MaxButton = (props: { token: Token; updateAmount; maxButtonText?: string }
         }
     }, [props.token, props.updateAmount]);
     return (
-        <View style={{ position: "absolute", right: 12, bottom: Platform.OS === "web" ? 12 : 24 }}>
+        <View style={{ position: "absolute", right: 12, bottom: Platform.OS === "web" ? 17 : 24 }}>
             <Button
                 type={"clear"}
                 size={"small"}
