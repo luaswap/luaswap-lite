@@ -46,22 +46,22 @@ const MyLimitOrdersScreen = () => {
                 <BackgroundImage />
                 <SwapContainer>
                     {/* <Title text={t("my-orders")} /> */}
-                    <Text style={{marginBottom: 40, textAlign: "center"}} light={true}>{t("my-orders-desc")}</Text>
+                    <Text style={{ marginBottom: 40, textAlign: "center" }} light={true}>{t("my-orders-desc")}</Text>
                     <MyLimitOrders />
                 </SwapContainer>
                 {Platform.OS === "web" && <WebFooter />}
-            </Container>            
+            </Container>
         </Screen>
     );
 };
 
 const MyLimitOrders = () => {
     const { chainId } = useContext(EthersContext);
-    const {border} = useColors()
+    const { border, backgroundLight } = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useMyLimitOrdersState();
     return (
-        <View style={{borderStyle: 'solid', borderWidth: 1 ,borderColor:border,paddingTop: 10, padding: 30, borderRadius: 10}}>
+        <View style={{ borderStyle: 'solid', borderWidth: 1, borderColor: border, paddingTop: 10, padding: 30, borderRadius: 10, backgroundColor: backgroundLight }}>
             <OrderSelect state={state} />
             <OrderInfo state={state} />
         </View>
@@ -75,7 +75,7 @@ const OrderSelect = (props: { state: MyLimitOrdersState }) => {
             <Expandable
                 // title={t("my-orders")}
                 title={''}
-                style={{width: !IS_DESKTOP ? 580 : "auto"}}
+                style={{ width: !IS_DESKTOP ? 580 : "auto" }}
                 expanded={!props.state.selectedOrder}
                 onExpand={() => props.state.setSelectedOrder()}>
                 <OrderList state={props.state} />
@@ -104,13 +104,13 @@ const OrderList = ({ state }: { state: MyLimitOrdersState }) => {
         <Loading />
     ) : state.myOrders.length === 0 ? (
         <EmptyList />
-        ) : (
+    ) : (
         <>
             <FlexView style={{ alignItems: "center", justifyContent: 'space-between', padding: 20 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 16}}>Pair</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 16}}>Amount</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Pair</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Amount</Text>
                 <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Price</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 16}}>Min Receive</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Min Receive</Text>
             </FlexView>
             <FlatList data={state.myOrders} renderItem={renderItem} />
         </>
@@ -147,8 +147,8 @@ const OrderItem = (props: { order: Order; selected: boolean; onSelectOrder: (ord
                 marginBottom: ITEM_SEPARATOR_HEIGHT
             }}>
             {/* <FlexView style={{ alignItems: "center" }}> */}
-                {/* <View> */}
-                    {/* <table style={{width: '100%'}}>
+            {/* <View> */}
+            {/* <table style={{width: '100%'}}>
                         <tr>
                             <th style={{textAlign: 'left'}}><Text style={{ color: disabled ? colorDisabled : '#fff' }}>Pair</Text></th>
                             <th style={{textAlign: 'left'}}><Text style={{ color: disabled ? colorDisabled : '#fff' }}>Amount</Text></th>
@@ -159,13 +159,13 @@ const OrderItem = (props: { order: Order; selected: boolean; onSelectOrder: (ord
                         <td><TokenAmount token={fromToken} amount={amountIn} disabled={disabled} style={{fontSize:15}}/></td>
                             <td><Text style={{ color: disabled ? colorDisabled : '#fff' }}>{props.order.canceled ? t("canceled") : price.toString(8) + ' ' + toToken.symbol + '/' + fromToken.symbol}</Text></td>
                         </tr>
-                    </table> */}                    
-                    <PairToken pair={pair} disabled={disabled}/>
-                    {/* <Token token={fromToken} amount={amountIn} disabled={disabled} buy={false} /> */}
-                    {/* <View style={{ height: Spacing.tiny }} /> */}
-                    {/* <Token token={toToken} amount={amountOutMin} disabled={disabled} buy={true} /> */}
-                {/* </View> */}
-                {/* <Field
+                    </table> */}
+            <PairToken pair={pair} disabled={disabled} />
+            {/* <Token token={fromToken} amount={amountIn} disabled={disabled} buy={false} /> */}
+            {/* <View style={{ height: Spacing.tiny }} /> */}
+            {/* <Token token={toToken} amount={amountOutMin} disabled={disabled} buy={true} /> */}
+            {/* </View> */}
+            {/* <Field
                     label={t("price")}
                     value={props.order.canceled ? t("canceled") : price.toString(8)}
                     disabled={disabled}
@@ -186,15 +186,15 @@ const PairToken = ({ pair, disabled }) => {
 
     return (
         <FlexView style={{ alignItems: "center", justifyContent: 'space-between' }}>
-            <FlexView style={{paddingRight: 10}}>
+            <FlexView style={{ paddingRight: 10 }}>
                 <TokenLogo small={true} token={fromToken} disabled={disabled} />
                 <TokenLogo small={true} token={toToken} disabled={disabled} />
             </FlexView>
             <FlexView>
-                <Text style={{paddingLeft: 20}} disabled={disabled}>
+                <Text style={{ paddingLeft: 20 }} disabled={disabled}>
                     {formatBalance(amountIn || fromToken.balance, fromToken.decimals, 8)}
-                </Text>                
-                <Text style={{paddingLeft:5}} disabled={disabled}>{fromToken.symbol}</Text>
+                </Text>
+                <Text style={{ paddingLeft: 5 }} disabled={disabled}>{fromToken.symbol}</Text>
             </FlexView>
             <FlexView>
                 <Text style={{ color: disabled ? colorDisabled : '#fff', paddingLeft: 20, paddingRight: 3 }}>{pair.canceled ? t("canceled") : price.toString(8)}</Text>
@@ -202,12 +202,12 @@ const PairToken = ({ pair, disabled }) => {
                 <Text style={{ color: disabled ? colorDisabled : '#fff', paddingLeft: 3, paddingRight: 3 }}>/</Text>
                 <Text disabled={disabled}>{fromToken.symbol}</Text>
             </FlexView>
-             <FlexView>
+            <FlexView>
                 <Text style={{ paddingLeft: 20 }} disabled={disabled}>
                     {(minReceive - (minReceive * .004)).toFixed(5)}
                     {/* {formatBalance(amountIn || fromToken.balance, fromToken.decimals, 8)} */}
                 </Text>
-                <Text style={{paddingLeft:5}} disabled={disabled}>{toToken.symbol}</Text>
+                <Text style={{ paddingLeft: 5 }} disabled={disabled}>{toToken.symbol}</Text>
             </FlexView>
         </FlexView>
     );
@@ -315,7 +315,7 @@ const CancelButton = ({ state, onError }: { state: MyLimitOrdersState; onError: 
         state.onCancelOrder().catch(onError);
     }, [state.onCancelOrder, onError]);
     const disabled = !state.selectedOrder || state.selectedOrder.status() !== "Open";
-    return <Button title={t("cancel-order")} loading={state.cancellingOrder} onPress={onPress} disabled={disabled} />;
+    return <Button title={t("cancel-order")} loading={state.cancellingOrder} onPress={onPress} disabled={disabled} style={{ borderRadius: 15 }} />;
 };
 
 export default MyLimitOrdersScreen;

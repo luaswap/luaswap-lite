@@ -1,12 +1,13 @@
 import React, { useCallback, useContext, useState } from "react";
-import { StyleSheet, Platform, View } from "react-native";
-import { Slider } from 'react-native-elements';
+import { StyleSheet, Platform, View, ImageBackground } from "react-native";
+import { Divider, Slider } from 'react-native-elements';
 
 import { ethers } from "ethers";
 import useAsyncEffect from "use-async-effect";
 import AmountMeta from "../components/AmountMeta";
 import ApproveButton from "../components/ApproveButton";
 import BackgroundImage from "../components/BackgroundImage";
+import BackgroundTradeInfo from "../components/svg/SvgBackgroundTradeInfo";
 import Border from "../components/Border";
 import Button from "../components/Button";
 import ChangeNetwork from "../components/ChangeNetwork";
@@ -74,30 +75,36 @@ const SwapScreen = () => {
             <Container>
                 <BackgroundImage />
                 <Text style={{ marginBottom: 40, textAlign: "center" }} light={true}>{t("new-order-desc")}</Text>
-
                 <SwapContainer>
-                    {/* <Title text={t("new-order")} /> */}
                     <Swap />
                 </SwapContainer>
-                {/* {Platform.OS === "web" && <WebFooter />} */}
             </Container>
         </Screen>
     );
 };
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginLeft: 10,
+        marginRight: 10,
+        alignItems: "stretch",
+        justifyContent: "center"
+    },
+    backgroundImage: {
+        width: '100%'
+    },
+});
 
 const Swap = () => {
     const { chainId } = useContext(EthersContext);
     const { border, backgroundLight, backgroundLightBox } = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useSwapState();
-    // console.log(state)
     return (
         <View>
             <FlexView style={{ flexDirection: IS_DESKTOP ? 'row' : 'column' }}>
                 <View style={{
                     flex: IS_DESKTOP ? 4 : 1,
-                    // borderStyle: 'solid', borderWidth: 1,
-                    // borderColor: border,
                     padding: 30,
                     borderRadius: 20,
                     backgroundColor: backgroundLight
@@ -214,15 +221,6 @@ const AmountInput = ({ state }: { state: SwapState }) => {
         </View>
     );
 };
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "stretch",
-        justifyContent: "center"
-    }
-});
 
 const ButtonPercent = () => {
     const [amount, setAmount] = useState<number>(0)
@@ -271,7 +269,17 @@ const LimitOrderUnsupportedNotice = () => {
             text={t("eth-not-supported-for-limit-orders")}
             color={placeholder}
             clear={true}
-            style={{ marginVertical: Spacing.small, marginHorizontal: Spacing.tiny }}
+            style={{
+                position: "absolute",
+                padding: 5,
+                borderRadius: 5,
+                right: 10,
+                top: -10,
+                maxWidth: 270,
+                backgroundColor: "#353535"
+                // marginVertical: Spacing.small,
+                // marginHorizontal: Spacing.tiny 
+            }}
         />
     );
 };
@@ -289,6 +297,7 @@ const NoPairNotice = ({ state }: { state: SwapState }) => {
 
 const TradeInfo = ({ state }: { state: SwapState }) => {
     /* const { chainId } = useContext(EthersContext); */
+    // const source = require("../../assets/Subtract.png")
     const t = useTranslation()
     if (isNativeAndWrappedNativePair(state.fromToken, state.toToken)) return <WrapInfo state={state} />
     const disabled =
@@ -299,24 +308,30 @@ const TradeInfo = ({ state }: { state: SwapState }) => {
         (!state.loading && !state.trade);
     // const onGetKeth = useLinker("https://faucet.kovan.network/", "", "_blank");
     return (
+
         <InfoBox>
+            {/* <ImageBackground source={source} style={styles.backgroundImage}> */}
+            <BackgroundTradeInfo />
+            <Divider style={{ backgroundColor: "#353535", height: 7, position: "absolute", width: "100%", left: 0, bottom: 32 }} />
             {state.orderType === "limit" ? (
                 <>
                     <LimitOrderInfo state={state} />
                     {/* {chainId === 42 && (
-                        <Notice
-                            text={t("get-free-keth-here")}
-                            buttonText={t("get-keth")}
-                            onPressButton={onGetKeth}
-                            color={"orange"}
-                            style={{ marginTop: Spacing.small }}
-                        />
-                    )} */}
+                            <Notice
+                                text={t("get-free-keth-here")}
+                                buttonText={t("get-keth")}
+                                onPressButton={onGetKeth}
+                                color={"orange"}
+                                style={{ marginTop: Spacing.small }}
+                            />
+                        )} */}
                 </>
             ) : (
                 <SwapInfo state={state} disabled={disabled} />
             )}
-        </InfoBox>
+            {/* </ImageBackground> */}
+        </InfoBox >
+
     );
 };
 
@@ -403,6 +418,7 @@ const SwapButton = ({ state, onError, disabled }: { state: SwapState; onError: (
             title={t("swap-", {
                 symbol: state.fromSymbol && state.toSymbol ? " " + state.fromSymbol + "-" + state.toSymbol : ""
             })}
+            style={{ borderRadius: 15 }}
             disabled={disabled}
             loading={state.swapping}
             onPress={onPress}
@@ -518,7 +534,7 @@ const LimitOrderControls = ({ state }: { state: SwapState }) => {
 
 const PriceTooLowButton = () => {
     const t = useTranslation();
-    return <Button title={t("set-price-greater-than-market")} disabled={true} />;
+    return <Button title={t("set-price-greater-than-market")} disabled={true} style={{ borderRadius: 15 }} />;
 };
 
 const PlaceOrderButton = ({
@@ -545,7 +561,7 @@ const PlaceOrderButton = ({
     }, [state.onCreateOrder, goToLimitOrders, onError]);
     if (!disabled && (chainId !== 88)) return <ChangeNetwork chainId={88} />;
     return (
-        <Button title={t("place-order")} disabled={disabled} loading={state.creatingOrder} onPress={onPress} />
+        <Button title={t("place-order")} disabled={disabled} loading={state.creatingOrder} onPress={onPress} style={{ borderRadius: 15 }} />
     );
 };
 
