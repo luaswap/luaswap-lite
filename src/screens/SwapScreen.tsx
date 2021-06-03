@@ -105,17 +105,19 @@ const Swap = () => {
             <FlexView style={{ flexDirection: IS_DESKTOP ? 'row' : 'column' }}>
                 <View style={{
                     flex: IS_DESKTOP ? 4 : 1,
-                    padding: 30,
+                    padding: IS_DESKTOP ? 30 : 10,
                     borderRadius: 20,
-                    backgroundColor: backgroundLight
+                    backgroundColor: backgroundLight,
+                    zIndex: 1,
+                    minHeight: "auto"
                 }}>
 
                     <OrderTypeSelect state={state} />
                     <View style={{
-                        backgroundColor: backgroundLightBox,
-                        padding: 20,
+                        backgroundColor: IS_DESKTOP ? backgroundLightBox : "transparent",
+                        padding: IS_DESKTOP ? 20 : 0,
                         borderRadius: 15,
-                        marginHorizontal: 10
+                        marginHorizontal: IS_DESKTOP ? 10 : 0
                     }}>
                         <FromTokenSelect state={state} />
                         <Space />
@@ -130,7 +132,7 @@ const Swap = () => {
                         {!state.loading && !state.trade && <NoPairNotice state={state} />}
                     </View>
                 </View>
-                <View style={{ flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0 }}>
+                <View style={{ flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
                     <TradeInfo state={state} />
                 </View>
             </FlexView>
@@ -191,7 +193,7 @@ const ToTokenSelect = ({ state }: { state: SwapState }) => {
         state.setToSymbol(limit && symbol === "TOMO" ? "WTOMO" : symbol);
     };
     return (
-        <View style={{ zIndex: 1 }}>
+        <View style={{ zIndex: 10 }}>
             <TokenSelect
                 title={t("token-to-buy")}
                 symbol={state.toSymbol}
@@ -275,7 +277,7 @@ const LimitOrderUnsupportedNotice = () => {
                 borderRadius: 5,
                 right: 10,
                 top: -10,
-                maxWidth: 270,
+                maxWidth: IS_DESKTOP ? 270 : 168,
                 backgroundColor: "#353535"
                 // marginVertical: Spacing.small,
                 // marginHorizontal: Spacing.tiny 

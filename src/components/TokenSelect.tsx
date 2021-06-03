@@ -70,8 +70,10 @@ const TokenSelect: FC<TokenSelectProps> = props => {
                     width: '100%',
                     backgroundColor: '#353535',
                     borderRadius: 15,
-                    padding: 15,
-                    top: 55
+                    padding: IS_DESKTOP ? 15 : 0,
+                    top: 55,
+                    shadowColor: "#2d2d2d",
+                    shadowRadius: 15
                 }}>
                     <TokenList disabled={props.disabled} hidden={hidden} onSelectToken={onSelectToken} />
                 </View>

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ViewStyle } from "react-native";
 
-import { Spacing } from "../constants/dimension";
+import { IS_DESKTOP, Spacing } from "../constants/dimension";
 import useColors from "../hooks/useColors";
 import useStyles from "../hooks/useStyles";
 import Button from "./Button";
@@ -23,7 +23,7 @@ const Notice = (props: NoticeProps) => {
     const color = props.color || textLight;
     return (
         <View style={[props.clear ? {} : borderStyle, props.style]}>
-            <Text note={true} style={{ color }}>
+            <Text note={true} style={{ color, fontSize: IS_DESKTOP ? 13 : 10 }}>
                 {props.text}
             </Text>
             {props.buttonText && props.onPressButton && (
