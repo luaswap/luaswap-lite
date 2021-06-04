@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useState } from "react";
 import { StyleSheet, Platform, View, ImageBackground } from "react-native";
 import { Divider, Slider } from 'react-native-elements';
+import StickyBox from "react-sticky-box";
 
 import { ethers } from "ethers";
 import useAsyncEffect from "use-async-effect";
@@ -132,9 +133,11 @@ const Swap = () => {
                         {!state.loading && !state.trade && <NoPairNotice state={state} />}
                     </View>
                 </View>
-                <View style={{ flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
-                    <TradeInfo state={state} />
-                </View>
+                <StickyBox offsetTop={0} offsetBottom={20} style={{ height: 350, flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
+                    <View>
+                        <TradeInfo state={state} />
+                    </View>
+                </StickyBox>
             </FlexView>
         </View>
     );
@@ -311,7 +314,7 @@ const TradeInfo = ({ state }: { state: SwapState }) => {
     // const onGetKeth = useLinker("https://faucet.kovan.network/", "", "_blank");
     return (
 
-        <InfoBox>
+        <InfoBox style={{ minHeight: "auto" }}>
             {/* <ImageBackground source={source} style={styles.backgroundImage}> */}
             <BackgroundTradeInfo />
             <Divider style={{ backgroundColor: "#353535", height: 7, position: "absolute", width: "100%", left: 0, bottom: 32 }} />
@@ -434,7 +437,7 @@ const WrapButton = ({ state, onError }: { state: SwapState; onError: (e) => void
         onError({});
         state.onWrap().catch(onError);
     }, []);
-    return <Button title={t("wrap")} loading={state.wrapping} onPress={onPress} />;
+    return <Button title={t("wrap")} loading={state.wrapping} onPress={onPress} style={{ borderRadius: 15 }} />;
 };
 
 const UnwrapButton = ({ state, onError }: { state: SwapState; onError: (e) => void }) => {
@@ -498,7 +501,7 @@ const LimitOrderControls = ({ state }: { state: SwapState }) => {
         !state.trade ||
         isEmptyValue(state.limitOrderPrice);
     return (
-        <View style={{ marginTop: Spacing.normal }}>
+        <View style={{ marginTop: Spacing.normal, borderRadius: 15 }}>
             {disabled ? (
                 <PlaceOrderButton state={state} onError={setError} disabled={true} />
             ) : parseBalance(state.fromAmount, state.fromToken!.decimals).gt(state.fromToken!.balance) ? (

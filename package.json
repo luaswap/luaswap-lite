@@ -60,6 +60,7 @@
     "react-native-web": "~0.13.7",
     "react-native-web-hover": "^0.2.9",
     "react-router-dom": "^5.2.0",
+    "react-sticky-box": "^0.9.3",
     "subscriptions-transport-ws": "0.9.16",
     "use-async-effect": "^2.2.2",
     "web3": "^1.2.11",
