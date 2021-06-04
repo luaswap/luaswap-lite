@@ -133,7 +133,7 @@ const Swap = () => {
                         {!state.loading && !state.trade && <NoPairNotice state={state} />}
                     </View>
                 </View>
-                <StickyBox offsetTop={0} offsetBottom={20} style={{ height: 350, flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
+                <StickyBox offsetTop={0} offsetBottom={20} style={{ maxHeight: 350, flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
                     <View>
                         <TradeInfo state={state} />
                     </View>
