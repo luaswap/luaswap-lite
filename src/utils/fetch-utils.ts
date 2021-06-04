@@ -81,7 +81,7 @@ export const fetchTokens = async (provider: ethers.providers.BaseProvider, accou
             "symbol": "LUA",
             "decimals": 18,
             "chainId": 88,
-            "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xB1f66997A5760428D3a87D68b90BfE0aE64121cC/logo.png"
+            "logoURI": "https://app.luaswap.org/orderbook/logo.png"
             },
             // {
             // "name": "Wrapped Serum",
