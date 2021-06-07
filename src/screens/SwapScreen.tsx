@@ -468,7 +468,7 @@ const LimitOrderInfo = ({ state }: { state: SwapState }) => {
             />
             {/* <Meta label={t("relayer-fee-amount")} text={state.limitOrderFee} suffix={state.fromSymbol} disabled={d} /> */}
             <Meta label={t("swap-fee-amount")} text={state.limitOrderSwapFee} suffix={state.fromSymbol} disabled={d} />
-            <Meta label={t("expiration")} text={t("24-hours-from-now")} disabled={d} />
+            {/* <Meta label={t("expiration")} text={t("24-hours-from-now")} disabled={d} /> */}
             <LimitOrderControls state={state} />
         </View>
     );
