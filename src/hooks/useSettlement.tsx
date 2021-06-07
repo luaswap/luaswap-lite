@@ -199,7 +199,7 @@ export class Order {
 
     async toArgs() {
         // const { v, r, s } = this.v && this.r && this.s ? { v: this.v, r: this.r, s: this.s } : await this.sign();
-        const [v, r, s] = [0, 0, 0];
+        const [v, r, s] = [0, '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000000'];
         return [
             await this.maker.getAddress(),
             this.fromToken.address,
