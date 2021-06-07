@@ -74,9 +74,9 @@ export const EthersContextProvider = ({ children }) => {
     const [tokens, setTokens] = useState<TokenWithValue[]>([]);
     const [customTokens, setCustomTokens] = useState<Token[]>([]);
     const [loadingTokens, setLoadingTokens] = useState(true);
-
     useAsyncEffect(async () => {
         // Mainnet
+
         if (ethereum) {
             const web3 = new ethers.providers.Web3Provider(ethereum);
             const web3Signer = await web3.getSigner();
@@ -108,13 +108,15 @@ export const EthersContextProvider = ({ children }) => {
             ethereum.on("accountsChanged", onAccountsChanged);
             ethereum.on("chainChanged", onChainChanged);
             ethereum.on("disconnect", onDisconnect);
-            return () => {
-                ethereum.off("accountsChanged", onAccountsChanged);
-                ethereum.off("chainChanged", onAccountsChanged);
-                ethereum.off("disconnect", onDisconnect);
-            };
+            // return () => {
+            //     ethereum.off("accountsChanged", onAccountsChanged);
+            //     ethereum.off("chainChanged", onAccountsChanged);
+            //     ethereum.off("disconnect", onDisconnect);
+            // };
+        } else {
+            setAddress(null);
         }
-    }, [ethereum]);
+    }, [ethereum, setAddress]);
 
     useAsyncEffect(async () => {
         if (provider && address) {

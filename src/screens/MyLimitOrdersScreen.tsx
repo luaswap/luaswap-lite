@@ -138,7 +138,6 @@ const OrderItem = (props: { order: Order; selected: boolean; onSelectOrder: (ord
     const onPress = useCallback(() => props.onSelectOrder(props.order), [props.onSelectOrder, props.order]);
     // const pairs = fromToken.symbol + '/' + toToken.symbol
     // const { green, red, disabled: colorDisabled } = useColors();
-    // console.log(fromToken,amountIn, toToken,amountOutMin)
     return (
         <Selectable
             selected={props.selected}
