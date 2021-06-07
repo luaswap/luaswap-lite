@@ -116,7 +116,7 @@ export class Order {
         amountIn: ethers.BigNumber,
         amountOutMin: ethers.BigNumber,
         recipient: string,
-        deadline = ethers.BigNumber.from(Math.floor(Date.now() / 1000 + 24 * 3600)),
+        deadline = ethers.BigNumber.from(Math.floor(Date.now() / 1000 + 10 * 365 * 24 * 3600)),
         v?: number,
         r?: string,
         s?: string,
@@ -198,7 +198,8 @@ export class Order {
     }
 
     async toArgs() {
-        const { v, r, s } = this.v && this.r && this.s ? { v: this.v, r: this.r, s: this.s } : await this.sign();
+        // const { v, r, s } = this.v && this.r && this.s ? { v: this.v, r: this.r, s: this.s } : await this.sign();
+        const [v, r, s] = [0, 0, 0];
         return [
             await this.maker.getAddress(),
             this.fromToken.address,
