@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import * as Analytics from "expo-firebase-analytics";
+// import * as Analytics from "expo-firebase-analytics";
 
 import AsyncStorage from "@react-native-community/async-storage";
 import luaData from "../../lua-data.js";
@@ -91,7 +91,7 @@ export const EthersContextProvider = ({ children }) => {
                 const accounts = await ethereum.request({ method: "eth_accounts" });
                 if (accounts?.[0]) {
                     setAddress(accounts[0]);
-                    Analytics.setUserId(accounts[0]);
+                    // Analytics.setUserId(accounts[0]);
                 } else {
                     setAddress(null);
                 }

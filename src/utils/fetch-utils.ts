@@ -480,7 +480,7 @@ export const fetchMyLimitOrders = async (
                 args.r,
                 args.s,
                 await settlement.filledAmountInOfHash(hash),
-                canceledHashes && canceledHashes.includes(hash)
+                await settlement.canceledOfHash(maker, hash)
             );
         })
     );

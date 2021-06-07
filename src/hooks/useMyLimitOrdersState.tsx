@@ -26,14 +26,14 @@ const useMyLimitOrdersState = () => {
     const [selectedOrder, setSelectedOrder] = useState<Order>();
     const [loading, setLoading] = useState(true);
     const [cancellingOrder, setCancellingOrder] = useState(false);
-    const [filledEvents, setFilledEvents] = useState<ethers.Event[]>();
+    // const [filledEvents, setFilledEvents] = useState<ethers.Event[]>();
 
     const updateOrders = async () => {
         if (provider && signer && address && tokens) {
             setLoading(true);
             try {
-                const canceledHashes = (await queryOrderCanceledEvents(signer)).map(event => event.args![0] as string);
-                const orders = await fetchMyLimitOrders(provider, signer, tokens, canceledHashes);
+                // const canceledHashes = (await queryOrderCanceledEvents(signer)).map(event => event.args![0] as string);
+                const orders = await fetchMyLimitOrders(provider, signer, tokens);
                 setMyOrders(orders);
             } finally {
                 setLoading(false);
@@ -43,12 +43,12 @@ const useMyLimitOrdersState = () => {
 
     useAsyncEffect(updateOrders, [provider, signer, address, tokens, lastTimeRefreshed]);
 
-    useAsyncEffect(async () => {
-        setFilledEvents(undefined);
-        if (selectedOrder && signer) {
-            setFilledEvents(await queryOrderFilledEvents(await selectedOrder.hash(), signer));
-        }
-    }, [selectedOrder, queryOrderFilledEvents]);
+    // useAsyncEffect(async () => {
+    //     setFilledEvents(undefined);
+    //     if (selectedOrder && signer) {
+    //         setFilledEvents(await queryOrderFilledEvents(await selectedOrder.hash(), signer));
+    //     }
+    // }, [selectedOrder, queryOrderFilledEvents]);
 
     const onCancelOrder = useCallback(async () => {
         if (selectedOrder && signer) {
@@ -72,7 +72,7 @@ const useMyLimitOrdersState = () => {
         setSelectedOrder,
         onCancelOrder,
         cancellingOrder,
-        filledEvents
+        // filledEvents
     };
 };
 
