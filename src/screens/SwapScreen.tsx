@@ -294,7 +294,7 @@ const NoPairNotice = ({ state }: { state: SwapState }) => {
     return (
         <Notice
             text={t("pair-not-created", { fromSymbol: state.fromSymbol, toSymbol: state.toSymbol })}
-            color={"red"}
+            color={"#FABC46"}
             style={{ marginTop: Spacing.normal }}
         />
     );
@@ -345,7 +345,7 @@ const WrapInfo = ({ state }: { state: SwapState }) => {
     return (
         <InfoBox>
             <Text style={{ fontSize: 28, marginBottom: Spacing.normal }} disabled={disabled}>
-                {disabled ? "N/A" : state.fromAmount + " " + state.toSymbol}
+                {disabled ? "---" : state.fromAmount + " " + state.toSymbol}
             </Text>
             <SwapControls state={state} />
         </InfoBox>
@@ -458,7 +458,7 @@ const LimitOrderInfo = ({ state }: { state: SwapState }) => {
                 disabled={isEmptyValue(state.limitOrderReturn)}
                 fontWeight={"bold"}
                 style={{ fontSize: 24, marginBottom: Spacing.normal }}>
-                {isEmptyValue(state.limitOrderReturn) ? "N/A" : state.limitOrderReturn + " " + state.toSymbol}
+                {isEmptyValue(state.limitOrderReturn) ? "---" : state.limitOrderReturn + " " + state.toSymbol}
             </Text>
             <Meta
                 label={t("market-price")}

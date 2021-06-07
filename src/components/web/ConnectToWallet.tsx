@@ -26,7 +26,7 @@ const ConnectWallet = () => {
             />
             {window.ethereum && <ConnectButton />}
             <WalletConnectButton />
-            <WebFooter simple={true} />
+            {/* <WebFooter simple={true} /> */}
         </View>
     );
 };

@@ -24,11 +24,11 @@ export const SwapSubMenu = () => {
             items={[
                 {
                     title: t("new-order"),
-                    path: "/swap"
+                    path: "/" // swap
                 },
                 {
                     title: t("my-orders"),
-                    path: "/swap/my-orders"
+                    path: "/my-orders" // swap/my-orders
                 }
             ]}
         />

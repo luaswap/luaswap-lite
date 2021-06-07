@@ -2,6 +2,7 @@
   "menu": {
     "home": "Home",
     "swap": "Swap",
+    "portfolio": "Portfolio",
     "liquidity": "Liquidity",
     "migrate": "Migrate",
     "stake": "Stake",
@@ -10,7 +11,7 @@
     "do-you-want-to-disconnect": "Do you want to disconnect?"
   },
   "change-network-to": "⚠️ Please switch the network to '{{networkName}}'",
-  "n/a": "N/A",
+  "n/a": "---",
   "loading": "Loading…",
   "fetching": "Fetching…",
   "total-value": "Portfolio",
@@ -64,7 +65,7 @@
   "filled-tx-no": "Filled TX #",
   "cancel-order": "Cancel Order",
   "add-liquidity": "Add Liquidity",
-  "add-liquidity-desc":"Add liquidity to a pool and get LP tokens of the pair.",
+  "add-liquidity-desc": "Add liquidity to a pool and get LP tokens of the pair.",
   "1-click-zap": "1-Click Zap",
   "1-click-zap-desc": "Add liquidity with 1 token within a single transaction",
   "normal": "Normal",

@@ -43,9 +43,9 @@ interface LPTokenItemProps {
 
 const HomeScreen = () => {
     const { chainId } = useContext(EthersContext);
-    const {border} = useColors()
+    const { border } = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
-    
+
     const t = useTranslation();
     const state = useHomeState();
     const { loadingTokens } = useContext(EthersContext);
@@ -53,9 +53,9 @@ const HomeScreen = () => {
     const totalValue = sum(state.tokens) + sum(state.lpTokens) + sum(state.pools);
     return (
         <Screen>
-            <Container style={{marginTop: 50}}>
+            <Container style={{ marginTop: 50 }}>
                 <BackgroundImage />
-                <Content style={{paddingBottom: Spacing.huge, borderRadius:16, borderStyle: 'solid', borderWidth: 1 ,borderColor:border }}>
+                <Content style={{ paddingBottom: Spacing.huge, borderRadius: 16, borderStyle: 'solid', borderWidth: 1, borderColor: border }}>
                     <Title text={t("total-value")} style={{ flex: 1, marginTop: Spacing.normal }} />
                     <Title
                         text={loading ? t("fetching") : formatUSD(totalValue, 4)}
@@ -65,7 +65,7 @@ const HomeScreen = () => {
                     />
                     <Home state={state} />
                 </Content>
-                {Platform.OS === "web" && <WebFooter />}
+                {/* {Platform.OS === "web" && <WebFooter />} */}
             </Container>
         </Screen>
     );

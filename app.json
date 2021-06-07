@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SushiSwap Lite",
-    "slug": "sushiswap-app",
+    "name": "LuaSwap Lite",
+    "slug": "luaswap-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,18 +21,7 @@
     },
     "web": {
       "favicon": "./assets/icon.png",
-      "config": {
-        "firebase": {
-          "apiKey": "AIzaSyANcyrmKaNPrM3QuRR17eA5a6iIDYt4NfQ",
-          "authDomain": "sushiswap-levx.firebaseapp.com",
-          "databaseURL": "https://sushiswap-levx.firebaseio.com",
-          "projectId": "sushiswap-levx",
-          "storageBucket": "sushiswap-levx.appspot.com",
-          "messagingSenderId": "967519785649",
-          "appId": "1:967519785649:web:131c698ed8aa881bdd8890",
-          "measurementId": "G-T98X3TB4HC"
-        }
-      }
+      "config": {}
     }
   }
 }

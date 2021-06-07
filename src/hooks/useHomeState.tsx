@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 
-import luaData from "../../lua-data.js";
-import useAsyncEffect from "use-async-effect";
-import Fraction from "../constants/Fraction";
+// import luaData from "../../lua-data.js";
+// import useAsyncEffect from "use-async-effect";
+// import Fraction from "../constants/Fraction";
 import { EthersContext } from "../context/EthersContext";
 import LPTokenWithValue from "../types/LPTokenWithValue";
-import { isWrappedNativeToken } from "../utils";
-import { fetchLPTokenWithValue, fetchMyLPTokens, fetchMyPools } from "../utils/fetch-utils";
-import useSDK from "./useSDK";
+// import { isWrappedNativeToken } from "../utils";
+// import { fetchLPTokenWithValue, fetchMyLPTokens, fetchMyPools } from "../utils/fetch-utils";
+// import useSDK from "./useSDK";
 
 export interface HomeState {
     loadingLPTokens: boolean;
@@ -18,12 +18,12 @@ export interface HomeState {
 
 // tslint:disable-next-line:max-func-body-length
 const useHomeState = () => {
-    const { provider, signer, address, tokens } = useContext(EthersContext);
+    const { address, tokens } = useContext(EthersContext);
     const [lpTokens, setLPTokens] = useState<LPTokenWithValue[]>();
     const [pools, setPools] = useState<LPTokenWithValue[]>();
     const [loadingLPTokens, setLoadingLPTokens] = useState(true);
     const [loadingPools, setLoadingPools] = useState(true);
-    const { getPair } = useSDK();
+    // const { getPair } = useSDK();
 
     useEffect(() => {
         setLPTokens(undefined);

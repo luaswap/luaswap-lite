@@ -28,7 +28,7 @@ export interface TokenSearchProps {
 // tslint:disable-next-line:max-func-body-length
 const TokenSearch: FC<TokenSearchProps> = props => {
     const t = useTranslation();
-    const { border } = useStyles();
+    // const { border } = useStyles();
     const { provider, tokens } = useContext(EthersContext);
     const [tokenToAdd, setTokenToAdd] = useState<Token>();
     const [loading, setLoading] = useState(false);
@@ -59,15 +59,15 @@ const TokenSearch: FC<TokenSearchProps> = props => {
         [provider, props.text]
     );
     return (
-        <View>
-            <FlexView style={{ marginBottom: Spacing.small }}>
+        <View style={{ zIndex: 1 }}>
+            <FlexView style={{ marginBottom: Spacing.small, }}>
                 <Input
                     value={props.text}
                     onChangeText={props.onChangeText}
                     placeholder={t("token-name-symbol-or-address")}
                     autoFocus={IS_DESKTOP}
-                    inputStyle={{ marginHorizontal: Spacing.tiny, fontSize: props.text ? 20 : 16 }}
-                    inputContainerStyle={{ borderBottomWidth: 0, marginRight: loading ? 32 : 0 }}
+                    inputStyle={{ fontSize: props.text ? 20 : 16, borderWidth: 0 }}
+                    inputContainerStyle={{ borderBottomWidth: 0, marginRight: loading ? 32 : 0, backgroundColor: "#353535", borderRadius: 15 }}
                     labelStyle={{ height: 0 }}
                 // containerStyle={{
                 //     ...border(),

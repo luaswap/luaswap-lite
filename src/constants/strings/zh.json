@@ -2,6 +2,7 @@
   "menu": {
     "home": "主页",
     "swap": "币币兑换",
+    "portfolio": "实时总价值",
     "liquidity": "提供流动性",
     "migrate": "迁移流动性",
     "stake": "质押分红",
