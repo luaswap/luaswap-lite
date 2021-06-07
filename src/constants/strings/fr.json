@@ -2,6 +2,7 @@
   "menu": {
     "home": "Accueil",
     "swap": "Swap",
+    "portfolio": "Portfolio",
     "liquidity": "Liquidité",
     "migrate": "Migration",
     "stake": "Staking",

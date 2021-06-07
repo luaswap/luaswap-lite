@@ -18,21 +18,21 @@ const SelectTokenable: FC<SelectableProps> = props => {
     const { backgroundLight } = useColors();
     return (
         <Hoverable style={props.containerStyle}>
-            {({ hovered }) => (
-                <TouchableHighlight underlayColor={overlay} onPress={props.onPress}>
-                    <View
-                        {...props}
-                        style={[
-                            {
-                                ...border({ color: props.selected ? borderDark : backgroundLight }),
-                                paddingHorizontal: 10,
-                                paddingVertical: 5
-                            },
-                            props.style
-                        ]}
-                    />
-                </TouchableHighlight>
-            )}
+            {/* {({ hovered }) => ( */}
+            <TouchableHighlight underlayColor={overlay} onPress={props.onPress}>
+                <View
+                    {...props}
+                    style={[
+                        {
+                            ...border({ color: props.selected ? borderDark : backgroundLight }),
+                            paddingHorizontal: 10,
+                            paddingVertical: 5
+                        },
+                        props.style
+                    ]}
+                />
+            </TouchableHighlight>
+            {/* )} */}
         </Hoverable>
     );
 };

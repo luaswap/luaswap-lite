@@ -49,7 +49,7 @@ const MyLimitOrdersScreen = () => {
                     <Text style={{ marginBottom: 40, textAlign: "center" }} light={true}>{t("my-orders-desc")}</Text>
                     <MyLimitOrders />
                 </SwapContainer>
-                {Platform.OS === "web" && <WebFooter />}
+                {/* {Platform.OS === "web" && <WebFooter />} */}
             </Container>
         </Screen>
     );
@@ -63,7 +63,7 @@ const MyLimitOrders = () => {
     return (
         <View style={{ borderStyle: 'solid', borderWidth: 1, borderColor: border, paddingTop: 10, padding: 30, borderRadius: 10, backgroundColor: backgroundLight }}>
             <OrderSelect state={state} />
-            <OrderInfo state={state} />
+            {state.selectedOrder && <OrderInfo state={state} />}
         </View>
     );
 };

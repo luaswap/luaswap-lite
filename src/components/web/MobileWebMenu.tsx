@@ -35,8 +35,8 @@ const MobileWebMenu = ({ expanded, onCollapse }) => {
                         {/* <DarkModeSwitch style={{ marginBottom: 4 }} /> */}
                         <Status />
                         <View style={{ height: Spacing.large }} />
-                        <MobileWebMenuItem title={t("menu.home")} path={"/"} />
-                        <MobileWebMenuItem title={t("menu.swap")} path={"/swap"} />
+                        <MobileWebMenuItem title={t("menu.swap")} path={"/"} />
+                        <MobileWebMenuItem title={t("menu.portfolio")} path={"/portfolio"} />
                         {/* <MobileWebMenuItem title={t("menu.liquidity")} path={"/liquidity"} />
                         <MobileWebMenuItem title={t("menu.migrate")} path={"/migrate"} />
                         <MobileWebMenuItem title={t("menu.stake")} path={"/staking"} />
@@ -74,13 +74,14 @@ const MobileWebMenuItem = ({ title, path }) => {
 const Status = () => {
     const t = useTranslation();
     const { textLight, green, accent } = useColors();
-    const { ethereum, chainId, address, ensName } = useContext(EthersContext);
+    const { ethereum, chainId, address, setEthereum } = useContext(EthersContext);
     const connected = (chainId === 88) && address;
     const title = connected
-        ? ensName || address!.substring(0, 6) + "..." + address!.substring(address!.length - 4, address!.length)
+        ? address!.substring(0, 6) + "..." + address!.substring(address!.length - 4, address!.length)
         : t("menu.not-connected");
     const color = connected ? green : textLight;
     const onPress = () => {
+        setEthereum(undefined)
         ethereum?.disconnect?.();
     };
     return (
@@ -89,7 +90,7 @@ const Status = () => {
                 <View style={{ backgroundColor: color, width: 6, height: 6, borderRadius: 3, marginTop: 8 }} />
                 <Text style={{ fontSize: 18, color: textLight, marginLeft: 8 }}>{title}</Text>
             </FlexView>
-            {ethereum?.isWalletConnect && (
+            {!!address && (
                 <Text
                     style={{ fontFamily: "regular", fontSize: 15, color: accent, alignSelf: "flex-end" }}
                     onPress={onPress}>

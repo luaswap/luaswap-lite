@@ -71,8 +71,8 @@ const Menu = () => {
                 height: "100%",
                 alignItems: "center"
             }}>
-            <MenuItem title={t("menu.home")} path={"/"} />
-            <MenuItem title={t("menu.swap")} path={"/swap"} />
+            <MenuItem title={t("menu.swap")} path={"/"} />
+            <MenuItem title={t("menu.portfolio")} path={"/portfolio"} />
             {/* <MenuItem title={t("menu.liquidity")} path={"/liquidity"} />
             <MenuItem title={t("menu.migrate")} path={"/migrate"} />
             <MenuItem title={t("menu.stake")} path={"/staking"} />

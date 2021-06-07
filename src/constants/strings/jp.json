@@ -2,6 +2,7 @@
   "menu": {
     "home": "ホーム",
     "swap": "スワップ",
+    "portfolio": "ポートフォリオ",
     "liquidity": "流動性",
     "migrate": "移行",
     "stake": "ステーク",

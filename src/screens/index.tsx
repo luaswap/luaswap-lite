@@ -44,10 +44,10 @@ const WebScreens = () => {
             <View style={{ flex: 1, backgroundColor: background }}>
                 <Suspense fallback={<EmptyScreen />}>
                     <Switch>
-                        <Route path={"/swap/my-orders"}>
+                        <Route path={"/my-orders"}>{/* /swap/my-orders */}
                             <MyLimitOrdersScreen />
                         </Route>
-                        <Route path={"/swap"}>
+                        <Route path={"/"} exact={true}>
                             <SwapScreen />
                         </Route>
                         {/* <Route path={"/liquidity/migrate"}>
@@ -74,7 +74,7 @@ const WebScreens = () => {
                         <Route path={"/staking"}>
                             <StakeScreen />
                         </Route> */}
-                        <Route path={"/"} exact={true}>
+                        <Route path={"/portfolio"}>
                             <HomeScreen />
                         </Route>
                         <Redirect to={"/"} />

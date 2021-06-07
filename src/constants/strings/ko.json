@@ -2,6 +2,7 @@
   "menu": {
     "home": "홈",
     "swap": "스왑",
+    "portfolio": "포트폴리오",
     "liquidity": "유동성",
     "migrate": "마이그레이션",
     "stake": "스테이킹",

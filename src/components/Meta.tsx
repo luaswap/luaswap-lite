@@ -20,10 +20,10 @@ const Meta: FC<MetaProps> = props => {
     const { textMedium, textLight, placeholder } = useColors();
     const onPress = useLinker(props.url || "", "", "_blank");
     const text = props.disabled
-        ? "N/A"
+        ? "---"
         : props.text
-        ? props.text + (props.suffix ? " " + props.suffix : "")
-        : t("fetching");
+            ? props.text + (props.suffix ? " " + props.suffix : "")
+            : t("fetching");
     return (
         <FlexView style={{ justifyContent: "space-between", marginTop: 4, paddingBottom: 10 }}>
             <Text note={!IS_DESKTOP} style={{ color: props.disabled ? placeholder : textMedium }}>
@@ -34,7 +34,7 @@ const Meta: FC<MetaProps> = props => {
                 onPress={props.url ? onPress : undefined}
                 style={{
                     color: props.disabled ? placeholder : props.text ? textMedium : textLight,
-                    textDecorationLine: props.url ? "underline" : "none",                    
+                    textDecorationLine: props.url ? "underline" : "none",
                 }}>
                 {text}
             </Text>
