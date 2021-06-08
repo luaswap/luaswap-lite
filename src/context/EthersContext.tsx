@@ -27,7 +27,7 @@ export const KOVAN_PROVIDER = new ethers.providers.AlchemyProvider(
     __DEV__ ? process.env.KOVAN_API_KEY : "MOX3sLJxKwltJjW6XZ8aBtDpenq-18St"
 );
 
-export const TOMOCHAIN_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.tomochain.com', 88);
+export const TOMOCHAIN_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.luaswap.org', 88);
 export const TOMOCHAIN_TESTNET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.testnet.tomochain.com', 89);
 export const BSC_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org', 56);
 
