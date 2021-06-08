@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from "react";
-import { StyleSheet, Platform, View, ImageBackground } from "react-native";
-import { Divider, Slider } from 'react-native-elements';
+import { StyleSheet, Platform, View } from "react-native";
+import { Divider } from 'react-native-elements';
 import StickyBox from "react-sticky-box";
 
 import { ethers } from "ethers";
@@ -13,7 +13,7 @@ import Border from "../components/Border";
 import Button from "../components/Button";
 import ChangeNetwork from "../components/ChangeNetwork";
 import Container from "../components/Container";
-import Content from "../components/Content";
+// import Content from "../components/Content";
 import SwapContainer from "../components/SwapContainer";
 import ErrorMessage from "../components/ErrorMessage";
 import FetchingButton from "../components/FetchingButton";
@@ -24,7 +24,7 @@ import Meta from "../components/Meta";
 import Notice from "../components/Notice";
 import Select, { Option } from "../components/Select";
 import Text from "../components/Text";
-import Title from "../components/Title";
+// import Title from "../components/Title";
 import TokenInput from "../components/TokenInput";
 import TokenSelect from "../components/TokenSelect";
 import UnsupportedButton from "../components/UnsupportedButton";
@@ -43,7 +43,6 @@ import MetamaskError from "../types/MetamaskError";
 import Token from "../types/Token";
 import { getContract, isEmptyValue, isNativeToken, isNativeAndWrappedNativePair, isWrappedNativeToken, parseBalance } from "../utils";
 import Screen from "./Screen";
-import MyLimitOrdersScreen from "./MyLimitOrdersScreen";
 import FlexView from "../components/FlexView";
 import Space from "../components/Space";
 // import Slider from "../components/Slider";
@@ -52,25 +51,6 @@ import Space from "../components/Space";
 const SwapScreen = () => {
     const t = useTranslation();
     return (
-        // <Screen>
-        //     <Container>
-        //         <BackgroundImage />
-        //         <SwapContainer>
-        //             {/* <Title text={t("new-order")} />
-        //             <Text light={true}>{t("new-order-desc")}</Text> */}
-
-        //             <View style={{ width: IS_DESKTOP ? '40%': '100%' }}>                        
-        //                 <Swap />
-        //             </View>
-
-        //             <View style={{ width: IS_DESKTOP ? '60%' : '100%', paddingLeft: '40px', paddingRight: '40px' }}>
-        //                 <MyLimitOrdersScreen/>
-        //             </View>
-        //         </SwapContainer>
-        //         {Platform.OS === "web" && <WebFooter />}
-        //     </Container>
-        //     {/* <SwapSubMenu /> */}
-        // </Screen>
         <Screen>
             <SwapSubMenu />
             <Container>
@@ -221,24 +201,10 @@ const AmountInput = ({ state }: { state: SwapState }) => {
                 amount={state.fromAmount}
                 onAmountChanged={state.setFromAmount}
                 autoFocus={IS_DESKTOP}
+                trc21Fee={state.trc21Fee}
             />
-            {/* <ButtonPercent state={ state }/> */}
         </View>
     );
-};
-
-const ButtonPercent = () => {
-    const [amount, setAmount] = useState<number>(0)
-    return (
-        <View style={styles.container}>
-            <Slider
-                step={0.25}
-                value={amount}
-                onValueChange={(value) => setAmount(value)}
-            />
-            <Text>Value: {amount}</Text>
-        </View>
-    )
 };
 
 const PriceInput = ({ state }: { state: SwapState }) => {
@@ -553,7 +519,7 @@ const PlaceOrderButton = ({
 }) => {
     const { chainId } = useContext(EthersContext);
     const t = useTranslation();
-    const goToLimitOrders = useLinker("/swap/my-orders", "LimitOrders");
+    const goToLimitOrders = useLinker("/my-orders", "LimitOrders");
     // const goToLimitOrders = () => window.location.reload(); 
     const onPress = useCallback(async () => {
         onError({});

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LuaSwap Lite",
-    "slug": "luaswap-app",
+    "slug": "luaswap-lite",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,18 @@
     },
     "web": {
       "favicon": "./assets/icon.png",
-      "config": {}
+      "config": {
+        "firebase": {
+          "apiKey": "",
+          "authDomain": "",
+          "databaseURL": "",
+          "projectId": "",
+          "storageBucket": "",
+          "messagingSenderId": "",
+          "appId": "1:438386243457:web:819901dd093c2b19d35a80",
+          "measurementId": ""
+        }
+      }
     }
   }
 }

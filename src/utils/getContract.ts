@@ -12,6 +12,7 @@ import ZapIn from "@sushiswap/zapper/artifacts/Sushiswap_ZapIn_General_V2.json";
 import ZapOut from "@sushiswap/zapper/artifacts/Sushiswap_ZapOut_General_V1.json";
 import { ethers } from "ethers";
 import LPTokenScanner from "../constants/abi/LPTokenScanner.json";
+import TRC21 from "../constants/abi/trc21.json";
 
 const CONTRACTS = {
     ERC20: { abi: ERC20 },
@@ -20,11 +21,12 @@ const CONTRACTS = {
     IUniswapV2Router02: { abi: IUniswapV2Router02 },
     IWETH: { abi: IWETH },
     MasterChef: { abi: MasterChef },
-    SushiBar : { abi: SushiBar },
+    SushiBar: { abi: SushiBar },
     SushiRoll: { abi: SushiRoll },
     OrderBook,
     Settlement,
     LPTokenScanner: { abi: LPTokenScanner },
+    TRC21: { abi: TRC21 },
     ZapIn,
     ZapOut
 };
