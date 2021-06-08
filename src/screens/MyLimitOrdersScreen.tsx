@@ -274,7 +274,7 @@ const OrderInfo = ({ state }: { state: MyLimitOrdersState }) => {
             <Meta label={t("amount-to-sell")} text={amountIn} suffix={order?.fromToken?.symbol} disabled={disabled} />
             <Meta label={t("amount-to-buy")} text={amountOutMin} suffix={order?.toToken?.symbol} disabled={disabled} />
             {/* <Meta label={t("expiration")} text={expiry || undefined} disabled={disabled} /> */}
-            <FilledEvents state={state} />
+            {/* <FilledEvents state={state} /> */}
             <Controls state={state} />
         </InfoBox>
     );
