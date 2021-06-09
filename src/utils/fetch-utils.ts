@@ -6,7 +6,7 @@ import _ from "lodash";
 import { LP_TOKEN_SCANNER, MASTER_CHEF, ORDER_BOOK, SETTLEMENT } from "../constants/contracts";
 import Fraction from "../constants/Fraction";
 import { TOMO } from "../constants/tokens";
-import { ALCHEMY_PROVIDER, KOVAN_PROVIDER, TOMOCHAIN_MAINET_PROVIDER } from "../context/EthersContext";
+import { TOMOCHAIN_MAINET_PROVIDER } from "../context/EthersContext";
 import { Order, OrderStatus } from "../hooks/useSettlement";
 import LPToken from "../types/LPToken";
 import Token from "../types/Token";
@@ -43,14 +43,14 @@ export const fetchTokens = async (provider: ethers.providers.BaseProvider, accou
             "default"
         ],
         "tokens": [
-            // {
-            // "name": "Wrapped BTC",
-            // "address": "0xAE44807D8A9CE4B30146437474Ed6fAAAFa1B809",
-            // "symbol": "BTC",
-            // "decimals": 8,
-            // "chainId": 88,
-            // "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"
-            // },
+            {
+                "name": "Wrapped BTC",
+                "address": "0xa91895630f2dafdc4fc5c3e32846108068c67004",
+                "symbol": "BTC",
+                "decimals": 8,
+                "chainId": 88,
+                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"
+            },
             {
                 "name": "Wrapped Ether",
                 "address": "0x2EAA73Bd0db20c64f53fEbeA7b5F5E5Bccc7fb8b",

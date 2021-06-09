@@ -11,7 +11,7 @@ export const FEE = new Percent("4", "1000"); // 0.4%
 
 // tslint:disable-next-line:max-func-body-length
 const useSwapRouter = () => {
-    const allowedSlippage = new Percent("50", "10000"); // 0.05%
+    const allowedSlippage = new Percent("500", "10000"); // 0.5%
     const ttl = 60 * 20;
 
     const swap = useCallback(async (trade: Trade, signer: ethers.Signer) => {
@@ -26,6 +26,7 @@ const useSwapRouter = () => {
             const gasLimit = await router.estimateGas[params.methodName](...params.args, {
                 value: params.value
             });
+
             const tx = await router.functions[params.methodName](...params.args, {
                 value: params.value,
                 gasLimit: gasLimit.mul(120).div(100)

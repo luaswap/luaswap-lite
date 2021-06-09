@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
-import { StyleSheet, Platform, View } from "react-native";
+import { StyleSheet, Platform, View, Linking } from "react-native";
 import { Divider } from 'react-native-elements';
 import StickyBox from "react-sticky-box";
 
@@ -45,6 +45,8 @@ import { getContract, isEmptyValue, isNativeToken, isNativeAndWrappedNativePair,
 import Screen from "./Screen";
 import FlexView from "../components/FlexView";
 import Space from "../components/Space";
+import { Link, NavLink } from "react-router-dom";
+import { Hoverable } from "react-native-web-hover";
 // import Slider from "../components/Slider";
 
 
@@ -74,6 +76,13 @@ const styles = StyleSheet.create({
     backgroundImage: {
         width: '100%'
     },
+    link: {
+        color: "#aaa"
+    },
+    hover: {
+        textDecorationLine: "underline"
+    }
+
 });
 
 const Swap = () => {
@@ -233,25 +242,71 @@ const PriceInput = ({ state }: { state: SwapState }) => {
 };
 
 const LimitOrderUnsupportedNotice = () => {
-    const { placeholder } = useColors();
+    const { textLight } = useColors();
     const t = useTranslation();
+    const onConvert = useLinker("https://app.luaswap.org/#/swap?outputCurrency=0xB1f66997A5760428D3a87D68b90BfE0aE64121cC", "", "_blank");
     return (
-        <Notice
-            text={t("eth-not-supported-for-limit-orders")}
-            color={placeholder}
-            clear={true}
-            style={{
-                position: "absolute",
-                padding: 5,
-                borderRadius: 5,
-                right: 10,
-                top: -10,
-                maxWidth: IS_DESKTOP ? 270 : 168,
-                backgroundColor: "#353535"
-                // marginVertical: Spacing.small,
-                // marginHorizontal: Spacing.tiny 
-            }}
-        />
+        <Hoverable style={{
+            position: "absolute",
+            padding: 5,
+            borderRadius: 5,
+            right: 10,
+            top: -10,
+            maxWidth: IS_DESKTOP ? 270 : 168,
+            backgroundColor: "#353535"
+        }}>
+            {hovered =>
+                <Button
+                    title={t("eth-not-supported-for-limit-orders")}
+                    type={"clear"}
+                    size={"small"}
+                    titleStyle={[styles.link, hovered && styles.hover]}
+                    onPress={onConvert}
+                    buttonStyle={{ paddingHorizontal: 0, paddingVertical: 0 }}
+                />
+            }
+        </Hoverable>
+        // <Hoverable style={{
+        //     position: "absolute",
+        //     padding: 5,
+        //     borderRadius: 5,
+        //     right: 10,
+        //     top: -10,
+        //     maxWidth: IS_DESKTOP ? 270 : 168,
+        //     backgroundColor: "#353535"
+        // }}>
+        //     {hover =>
+        //         <Link
+        //             to={onConvert}
+        //             target="blank"
+        //             style={{
+        //                 color: textLight,
+        //                 fontFamily: "apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+        //                 fontSize: 13,
+        //                 textDecorationLine: hover ? "underline" : "none"
+        //             }}>
+        //             {t("eth-not-supported-for-limit-orders")}
+        //         </Link>
+        //     }
+        // </Hoverable>
+        // <Notice
+        //     text={t("eth-not-supported-for-limit-orders")}
+        //     color={textLight}
+        //     clear={true}
+        //     buttonText={"Convert"}
+        //     onPressButton={onConvert}
+        //     style={{
+        //         position: "absolute",
+        //         padding: 5,
+        //         borderRadius: 5,
+        //         right: 10,
+        //         top: -10,
+        //         maxWidth: IS_DESKTOP ? 270 : 168,
+        //         backgroundColor: "#353535",
+        //         // marginVertical: Spacing.small,
+        //         // marginHorizontal: Spacing.tiny 
+        //     }}
+        // />
     );
 };
 
