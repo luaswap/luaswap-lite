@@ -34,7 +34,7 @@
   "maximum-allowed-amount-in-beta": "Maximum allowed amount in beta is {{amount}} {{symbol}} (≈ 10 ETH).",
   "minimum-price": "Minimum Price",
   "-market-": "MARKET",
-  "eth-not-supported-for-limit-orders": "⚠️ TOMO not supported for limit orders. Use WTOMO instead.",
+  "eth-not-supported-for-limit-orders": "⚠️ TOMO not supported for limit orders. Convert to WTOMO here.",
   "pair-not-created": "{{fromSymbol}}-{{toSymbol}} pair hasn't been created yet.",
   "price": "Price",
   "price-impact": "Price Impact",

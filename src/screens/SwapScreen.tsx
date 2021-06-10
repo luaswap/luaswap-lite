@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     link: {
-        color: "#aaa"
+        color: "#aaa",
+        textAlign: "left"
     },
     hover: {
         textDecorationLine: "underline"
@@ -262,6 +263,7 @@ const LimitOrderUnsupportedNotice = () => {
                     size={"small"}
                     titleStyle={[styles.link, hovered && styles.hover]}
                     onPress={onConvert}
+                    containerStyle={{ overflow: "visible" }}
                     buttonStyle={{ paddingHorizontal: 0, paddingVertical: 0 }}
                 />
             }

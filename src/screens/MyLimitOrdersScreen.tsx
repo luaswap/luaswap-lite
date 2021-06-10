@@ -61,7 +61,7 @@ const MyLimitOrders = () => {
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useMyLimitOrdersState();
     return (
-        <View style={{ borderStyle: 'solid', borderWidth: 1, borderColor: border, paddingTop: 10, padding: 30, borderRadius: 10, backgroundColor: backgroundLight }}>
+        <View style={{ borderStyle: 'solid', borderWidth: 1, borderColor: border, paddingTop: 10, padding: IS_DESKTOP ? 30 : 10, borderRadius: 10, backgroundColor: backgroundLight }}>
             <OrderSelect state={state} />
             {state.selectedOrder && <OrderInfo state={state} />}
         </View>
@@ -71,11 +71,10 @@ const MyLimitOrders = () => {
 const OrderSelect = (props: { state: MyLimitOrdersState }) => {
     const t = useTranslation();
     return (
-        <View style={{ overflow: !IS_DESKTOP ? "auto" : "hidden" }}>
+        <View>
             <Expandable
                 // title={t("my-orders")}
                 title={''}
-                style={{ width: !IS_DESKTOP ? 580 : "auto" }}
                 expanded={!props.state.selectedOrder}
                 onExpand={() => props.state.setSelectedOrder()}>
                 <OrderList state={props.state} />
@@ -107,10 +106,10 @@ const OrderList = ({ state }: { state: MyLimitOrdersState }) => {
     ) : (
         <>
             <FlexView style={{ alignItems: "center", justifyContent: 'space-between', padding: 20 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Pair</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Amount</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Price</Text>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Min Receive</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: IS_DESKTOP ? 16 : 14 }}>Pair</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: IS_DESKTOP ? 16 : 14 }}>Amount</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: IS_DESKTOP ? 16 : 14 }}>Price</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: IS_DESKTOP ? 16 : 14 }}>Min Receive</Text>
             </FlexView>
             <FlatList data={state.myOrders} renderItem={renderItem} />
         </>
@@ -182,7 +181,8 @@ const PairToken = ({ pair, disabled }) => {
     const price = Fraction.fromTokens(amountOutMin, amountIn, toToken, fromToken)
 
     const minReceive = Number(formatBalance(amountOutMin || toToken.balance, toToken.decimals, 4))
-
+    const toFixed = IS_DESKTOP ? 5 : 3
+    const amountDecimal = IS_DESKTOP ? 8 : 3
     return (
         <FlexView style={{ alignItems: "center", justifyContent: 'space-between' }}>
             <FlexView style={{ paddingRight: 10 }}>
@@ -190,20 +190,20 @@ const PairToken = ({ pair, disabled }) => {
                 <TokenLogo small={true} token={toToken} disabled={disabled} />
             </FlexView>
             <FlexView>
-                <Text style={{ paddingLeft: 20 }} disabled={disabled}>
-                    {formatBalance(amountIn || fromToken.balance, fromToken.decimals, 8)}
+                <Text style={{ paddingLeft: IS_DESKTOP ? 20 : 5 }} disabled={disabled}>
+                    {formatBalance(amountIn || fromToken.balance, fromToken.decimals, amountDecimal)}
                 </Text>
                 <Text style={{ paddingLeft: 5 }} disabled={disabled}>{fromToken.symbol}</Text>
             </FlexView>
             <FlexView>
                 <Text style={{ color: disabled ? colorDisabled : '#fff', paddingLeft: 20, paddingRight: 3 }}>{pair.canceled ? t("canceled") : price.toString(8)}</Text>
-                <Text disabled={disabled}>{toToken.symbol}</Text>
-                <Text style={{ color: disabled ? colorDisabled : '#fff', paddingLeft: 3, paddingRight: 3 }}>/</Text>
-                <Text disabled={disabled}>{fromToken.symbol}</Text>
+                {IS_DESKTOP && <Text disabled={disabled}>{toToken.symbol}</Text>}
+                {IS_DESKTOP && <Text style={{ color: disabled ? colorDisabled : '#fff', paddingLeft: 3, paddingRight: 3 }}>/</Text>}
+                {IS_DESKTOP && <Text disabled={disabled}>{fromToken.symbol}</Text>}
             </FlexView>
             <FlexView>
                 <Text style={{ paddingLeft: 20 }} disabled={disabled}>
-                    {(minReceive - (minReceive * .004)).toFixed(5)}
+                    {(minReceive - (minReceive * .004)).toFixed(toFixed)}
                     {/* {formatBalance(amountIn || fromToken.balance, fromToken.decimals, 8)} */}
                 </Text>
                 <Text style={{ paddingLeft: 5 }} disabled={disabled}>{toToken.symbol}</Text>
