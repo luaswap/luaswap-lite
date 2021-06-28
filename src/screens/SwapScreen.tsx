@@ -459,7 +459,7 @@ const WrapButton = ({ state, onError }: { state: SwapState; onError: (e) => void
     const onPress = useCallback(async () => {
         onError({});
         state.onWrap().catch(onError);
-    }, []);
+    }, [state.onSwap, onError]);
     return <Button title={t("wrap")} loading={state.wrapping} onPress={onPress} style={{ borderRadius: 15 }} />;
 };
 
