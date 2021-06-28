@@ -6,17 +6,17 @@ import AppHeader from "../components/app/AppHeader";
 import ConnectToWallet from "../components/web/ConnectToWallet";
 import { HEADER_HEIGHT } from "../constants/dimension";
 import { EthersContext } from "../context/EthersContext";
-import { GlobalContext } from "../context/GlobalContext";
+// import { GlobalContext } from "../context/GlobalContext";
 
 const Screen = props => {
-    const { setLocale } = useContext(GlobalContext);
-    const query = useQuery();
-    useEffect(() => {
-        const locale = query.get("locale");
-        if (locale) {
-            setLocale(locale);
-        }
-    }, [query]);
+    // const { setLocale } = useContext(GlobalContext);
+    // const query = useQuery();
+    // useEffect(() => {
+    //     const locale = query.get("locale");
+    //     if (locale) {
+    //         setLocale(locale);
+    //     }
+    // }, [query]);
     return Platform.select({
         web: <WebScreen {...props} />,
         default: <AppScreen {...props} />
@@ -41,9 +41,9 @@ const AppScreen = props => (
     </View>
 );
 
-const useQuery = () => {
-    const location = useLocation();
-    return new URLSearchParams(location.search);
-};
+// const useQuery = () => {
+//     const location = useLocation();
+//     return new URLSearchParams(location.search);
+// };
 
 export default Screen;

@@ -31,14 +31,14 @@ const Select: FC<SelectProps> = props => {
     return (
         <View>
             {/* <Expandable title={props.title} expanded={!props.option} onExpand={() => props.setOption()}> */}
-            <FlexView style={{width: '100%', flexDirection: IS_DESKTOP ? 'row' : 'column'}}>
+            <FlexView style={{ width: '100%', flexDirection: IS_DESKTOP ? 'row' : 'column' }}>
                 {props.options.map(option => (
-                    <View style={{
+                    <View key={option.key} style={{
                         flex: 1,
-                        borderRadius: 15,                        
+                        borderRadius: 15,
                         justifyContent: "space-between",
                         marginHorizontal: IS_DESKTOP ? 10 : 0,
-                        marginBottom: !IS_DESKTOP ? 20 : 0
+                        marginBottom: !IS_DESKTOP ? 5 : 0
                     }}>
                         <Item
                             key={option.key}
@@ -66,7 +66,7 @@ const Item = (props: {
     return (
         <Selectable
             containerStyle={{ marginBottom: ITEM_SEPARATOR_HEIGHT }}
-            style={{ padding: 20, minHeight: 102, backgroundColor: "#464646",borderRadius: 15 }}
+            style={{ padding: IS_DESKTOP ? 20 : 10, minHeight: IS_DESKTOP ? 102 : 82, backgroundColor: "#464646", borderRadius: 15 }}
             selected={props.selected}
             disabled={props.selectable}
             onPress={() => props.setOption?.(props.selected ? undefined : props.option)}>
@@ -77,7 +77,7 @@ const Item = (props: {
                         {props.option.description}
                     </Text>
                 </View>
-                {props.selected ? <CloseIcon /> : <SelectIcon />}
+                {/* {props.selected ? <CloseIcon /> : <SelectIcon />} */}
             </FlexView>
         </Selectable>
     );

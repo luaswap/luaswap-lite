@@ -1,17 +1,19 @@
 import React, { useCallback, useContext, useState } from "react";
-import { StyleSheet, Platform, View } from "react-native";
-import { Slider } from 'react-native-elements';
+import { StyleSheet, Platform, View, Linking } from "react-native";
+import { Divider } from 'react-native-elements';
+import StickyBox from "react-sticky-box";
 
 import { ethers } from "ethers";
 import useAsyncEffect from "use-async-effect";
 import AmountMeta from "../components/AmountMeta";
 import ApproveButton from "../components/ApproveButton";
 import BackgroundImage from "../components/BackgroundImage";
+import BackgroundTradeInfo from "../components/svg/SvgBackgroundTradeInfo";
 import Border from "../components/Border";
 import Button from "../components/Button";
 import ChangeNetwork from "../components/ChangeNetwork";
 import Container from "../components/Container";
-import Content from "../components/Content";
+// import Content from "../components/Content";
 import SwapContainer from "../components/SwapContainer";
 import ErrorMessage from "../components/ErrorMessage";
 import FetchingButton from "../components/FetchingButton";
@@ -22,14 +24,14 @@ import Meta from "../components/Meta";
 import Notice from "../components/Notice";
 import Select, { Option } from "../components/Select";
 import Text from "../components/Text";
-import Title from "../components/Title";
+// import Title from "../components/Title";
 import TokenInput from "../components/TokenInput";
 import TokenSelect from "../components/TokenSelect";
 import UnsupportedButton from "../components/UnsupportedButton";
 import WebFooter from "../components/web/WebFooter";
 import { SwapSubMenu } from "../components/web/WebSubMenu";
 import { ROUTER, SETTLEMENT } from "../constants/contracts";
-import { IS_DESKTOP, Spacing} from "../constants/dimension";
+import { IS_DESKTOP, Spacing } from "../constants/dimension";
 import Fraction from "../constants/Fraction";
 import { ALCHEMY_PROVIDER, TOMOCHAIN_MAINET_PROVIDER, EthersContext } from "../context/EthersContext";
 import useColors from "../hooks/useColors";
@@ -41,91 +43,91 @@ import MetamaskError from "../types/MetamaskError";
 import Token from "../types/Token";
 import { getContract, isEmptyValue, isNativeToken, isNativeAndWrappedNativePair, isWrappedNativeToken, parseBalance } from "../utils";
 import Screen from "./Screen";
-import MyLimitOrdersScreen from "./MyLimitOrdersScreen";
 import FlexView from "../components/FlexView";
+import Space from "../components/Space";
+import { Link, NavLink } from "react-router-dom";
+import { Hoverable } from "react-native-web-hover";
 // import Slider from "../components/Slider";
 
 
 const SwapScreen = () => {
     const t = useTranslation();
     return (
-        // <Screen>
-        //     <Container>
-        //         <BackgroundImage />
-        //         <SwapContainer>
-        //             {/* <Title text={t("new-order")} />
-        //             <Text light={true}>{t("new-order-desc")}</Text> */}
-                    
-        //             <View style={{ width: IS_DESKTOP ? '40%': '100%' }}>                        
-        //                 <Swap />
-        //             </View>
-                    
-        //             <View style={{ width: IS_DESKTOP ? '60%' : '100%', paddingLeft: '40px', paddingRight: '40px' }}>
-        //                 <MyLimitOrdersScreen/>
-        //             </View>
-        //         </SwapContainer>
-        //         {Platform.OS === "web" && <WebFooter />}
-        //     </Container>
-        //     {/* <SwapSubMenu /> */}
-        // </Screen>
         <Screen>
             <SwapSubMenu />
             <Container>
                 <BackgroundImage />
-                <Text style={{marginBottom: 40, textAlign: "center"}} light={true}>{t("new-order-desc")}</Text>
-       
+                <Text style={{ marginBottom: 40, textAlign: "center" }} light={true}>{t("new-order-desc")}</Text>
                 <SwapContainer>
-                    {/* <Title text={t("new-order")} /> */}                    
                     <Swap />
                 </SwapContainer>
-                {/* {Platform.OS === "web" && <WebFooter />} */}
-            </Container>            
+            </Container>
         </Screen>
     );
 };
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginLeft: 10,
+        marginRight: 10,
+        alignItems: "stretch",
+        justifyContent: "center"
+    },
+    backgroundImage: {
+        width: '100%'
+    },
+    link: {
+        color: "#aaa",
+        textAlign: "left"
+    },
+    hover: {
+        textDecorationLine: "underline"
+    }
+
+});
 
 const Swap = () => {
     const { chainId } = useContext(EthersContext);
-    const {border, backgroundLight, backgroundLightBox} = useColors()
+    const { border, backgroundLight, backgroundLightBox } = useColors()
     if (chainId !== 88) return <ChangeNetwork />;
     const state = useSwapState();
     return (
         <View>
-            <FlexView style={{flexDirection: IS_DESKTOP ? 'row' : 'column'}}>
+            <FlexView style={{ flexDirection: IS_DESKTOP ? 'row' : 'column' }}>
                 <View style={{
                     flex: IS_DESKTOP ? 4 : 1,
-                    // borderStyle: 'solid', borderWidth: 1,
-                    // borderColor: border,
-                    padding: 30,
+                    padding: IS_DESKTOP ? 30 : 10,
                     borderRadius: 20,
-                    backgroundColor: backgroundLight
+                    backgroundColor: backgroundLight,
+                    zIndex: 1,
+                    minHeight: "auto"
                 }}>
-                    
+
                     <OrderTypeSelect state={state} />
                     <View style={{
-                        backgroundColor: backgroundLightBox,
-                        padding: 20,
+                        backgroundColor: IS_DESKTOP ? backgroundLightBox : "transparent",
+                        padding: IS_DESKTOP ? 20 : 0,
                         borderRadius: 15,
-                        marginHorizontal: 10
+                        marginHorizontal: IS_DESKTOP ? 10 : 0
                     }}>
-                        {/* <Border /> */}
                         <FromTokenSelect state={state} />
-                        {/* <Border /> */}
+                        <Space />
                         <ToTokenSelect state={state} />
-                        {/* <Border /> */}
+                        <Space />
                         <AmountInput state={state} />
                         {state.orderType === "limit" && (
                             <View style={{ marginTop: Spacing.small }}>
-                                <Border />
                                 <PriceInput state={state} />
                             </View>
                         )}
                         {!state.loading && !state.trade && <NoPairNotice state={state} />}
                     </View>
                 </View>
-                <View style={{flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0}}>
-                    <TradeInfo state={state} />
-                </View>
+                <StickyBox offsetTop={0} offsetBottom={20} style={{ maxHeight: 350, flex: IS_DESKTOP ? 3 : 1, marginLeft: IS_DESKTOP ? 20 : 0, marginTop: IS_DESKTOP ? 0 : 30 }}>
+                    <View>
+                        <TradeInfo state={state} />
+                    </View>
+                </StickyBox>
             </FlexView>
         </View>
     );
@@ -157,7 +159,7 @@ const FromTokenSelect = ({ state }: { state: SwapState }) => {
     }
     const ETH = tokens ? tokens.find(token => isNativeToken(token)) : null;
     return (
-        <View>
+        <View style={{ zIndex: 1 }}>
             <TokenSelect
                 title={t("token-to-sell")}
                 symbol={state.fromSymbol}
@@ -184,7 +186,7 @@ const ToTokenSelect = ({ state }: { state: SwapState }) => {
         state.setToSymbol(limit && symbol === "TOMO" ? "WTOMO" : symbol);
     };
     return (
-        <View>
+        <View style={{ zIndex: 10 }}>
             <TokenSelect
                 title={t("token-to-buy")}
                 symbol={state.toSymbol}
@@ -209,33 +211,10 @@ const AmountInput = ({ state }: { state: SwapState }) => {
                 amount={state.fromAmount}
                 onAmountChanged={state.setFromAmount}
                 autoFocus={IS_DESKTOP}
+                trc21Fee={state.trc21Fee}
             />
-            {/* <ButtonPercent state={ state }/> */}
         </View>
     );
-};
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: "stretch",
-    justifyContent: "center"
-  }
-});
-
-const ButtonPercent = () => {
-    const [amount, setAmount] = useState<number>(0)
-    return (
-        <View style={styles.container}>
-            <Slider
-                step={0.25}
-                value={amount}
-                onValueChange={(value) => setAmount(value)}
-            />
-            <Text>Value: {amount}</Text>
-        </View>
-    )    
 };
 
 const PriceInput = ({ state }: { state: SwapState }) => {
@@ -264,15 +243,72 @@ const PriceInput = ({ state }: { state: SwapState }) => {
 };
 
 const LimitOrderUnsupportedNotice = () => {
-    const { placeholder } = useColors();
+    const { textLight } = useColors();
     const t = useTranslation();
+    const onConvert = useLinker("https://app.luaswap.org/#/swap?outputCurrency=0xB1f66997A5760428D3a87D68b90BfE0aE64121cC", "", "_blank");
     return (
-        <Notice
-            text={t("eth-not-supported-for-limit-orders")}
-            color={placeholder}
-            clear={true}
-            style={{ marginVertical: Spacing.small, marginHorizontal: Spacing.tiny }}
-        />
+        <Hoverable style={{
+            position: "absolute",
+            padding: 5,
+            borderRadius: 5,
+            right: 10,
+            top: -10,
+            maxWidth: IS_DESKTOP ? 270 : 168,
+            backgroundColor: "#353535"
+        }}>
+            {hovered =>
+                <Button
+                    title={t("eth-not-supported-for-limit-orders")}
+                    type={"clear"}
+                    size={"small"}
+                    titleStyle={[styles.link, hovered && styles.hover]}
+                    onPress={onConvert}
+                    containerStyle={{ overflow: "visible" }}
+                    buttonStyle={{ paddingHorizontal: 0, paddingVertical: 0 }}
+                />
+            }
+        </Hoverable>
+        // <Hoverable style={{
+        //     position: "absolute",
+        //     padding: 5,
+        //     borderRadius: 5,
+        //     right: 10,
+        //     top: -10,
+        //     maxWidth: IS_DESKTOP ? 270 : 168,
+        //     backgroundColor: "#353535"
+        // }}>
+        //     {hover =>
+        //         <Link
+        //             to={onConvert}
+        //             target="blank"
+        //             style={{
+        //                 color: textLight,
+        //                 fontFamily: "apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+        //                 fontSize: 13,
+        //                 textDecorationLine: hover ? "underline" : "none"
+        //             }}>
+        //             {t("eth-not-supported-for-limit-orders")}
+        //         </Link>
+        //     }
+        // </Hoverable>
+        // <Notice
+        //     text={t("eth-not-supported-for-limit-orders")}
+        //     color={textLight}
+        //     clear={true}
+        //     buttonText={"Convert"}
+        //     onPressButton={onConvert}
+        //     style={{
+        //         position: "absolute",
+        //         padding: 5,
+        //         borderRadius: 5,
+        //         right: 10,
+        //         top: -10,
+        //         maxWidth: IS_DESKTOP ? 270 : 168,
+        //         backgroundColor: "#353535",
+        //         // marginVertical: Spacing.small,
+        //         // marginHorizontal: Spacing.tiny 
+        //     }}
+        // />
     );
 };
 
@@ -281,7 +317,7 @@ const NoPairNotice = ({ state }: { state: SwapState }) => {
     return (
         <Notice
             text={t("pair-not-created", { fromSymbol: state.fromSymbol, toSymbol: state.toSymbol })}
-            color={"red"}
+            color={"#FABC46"}
             style={{ marginTop: Spacing.normal }}
         />
     );
@@ -289,6 +325,7 @@ const NoPairNotice = ({ state }: { state: SwapState }) => {
 
 const TradeInfo = ({ state }: { state: SwapState }) => {
     /* const { chainId } = useContext(EthersContext); */
+    // const source = require("../../assets/Subtract.png")
     const t = useTranslation()
     if (isNativeAndWrappedNativePair(state.fromToken, state.toToken)) return <WrapInfo state={state} />
     const disabled =
@@ -299,24 +336,30 @@ const TradeInfo = ({ state }: { state: SwapState }) => {
         (!state.loading && !state.trade);
     // const onGetKeth = useLinker("https://faucet.kovan.network/", "", "_blank");
     return (
-        <InfoBox>
+
+        <InfoBox style={{ minHeight: "auto" }}>
+            {/* <ImageBackground source={source} style={styles.backgroundImage}> */}
+            <BackgroundTradeInfo />
+            <Divider style={{ backgroundColor: "#353535", height: 7, position: "absolute", width: "100%", left: 0, bottom: 32 }} />
             {state.orderType === "limit" ? (
                 <>
                     <LimitOrderInfo state={state} />
                     {/* {chainId === 42 && (
-                        <Notice
-                            text={t("get-free-keth-here")}
-                            buttonText={t("get-keth")}
-                            onPressButton={onGetKeth}
-                            color={"orange"}
-                            style={{ marginTop: Spacing.small }}
-                        />
-                    )} */}
+                            <Notice
+                                text={t("get-free-keth-here")}
+                                buttonText={t("get-keth")}
+                                onPressButton={onGetKeth}
+                                color={"orange"}
+                                style={{ marginTop: Spacing.small }}
+                            />
+                        )} */}
                 </>
             ) : (
                 <SwapInfo state={state} disabled={disabled} />
             )}
-        </InfoBox>
+            {/* </ImageBackground> */}
+        </InfoBox >
+
     );
 };
 
@@ -325,7 +368,7 @@ const WrapInfo = ({ state }: { state: SwapState }) => {
     return (
         <InfoBox>
             <Text style={{ fontSize: 28, marginBottom: Spacing.normal }} disabled={disabled}>
-                {disabled ? "N/A" : state.fromAmount + " " + state.toSymbol}
+                {disabled ? "---" : state.fromAmount + " " + state.toSymbol}
             </Text>
             <SwapControls state={state} />
         </InfoBox>
@@ -335,7 +378,7 @@ const WrapInfo = ({ state }: { state: SwapState }) => {
 const SwapInfo = ({ state, disabled }: { state: SwapState; disabled: boolean }) => {
     const t = useTranslation();
     const amount = state.trade?.outputAmount?.toFixed();
-    const price = state.trade?.executionPrice?.toFixed();    
+    const price = state.trade?.executionPrice?.toFixed();
     const impact = state.trade?.priceImpact?.toFixed(2);
     return (
         <View>
@@ -361,9 +404,9 @@ const SwapControls = ({ state }: { state: SwapState }) => {
     return (
         <View style={{ marginTop: Spacing.normal }}>
             {!state.fromToken ||
-            !state.toToken ||
-            isEmptyValue(state.fromAmount) ||
-            (!state.loading && !state.trade) ? (
+                !state.toToken ||
+                isEmptyValue(state.fromAmount) ||
+                (!state.loading && !state.trade) ? (
                 <SwapButton state={state} onError={setError} disabled={true} />
             ) : parseBalance(state.fromAmount, state.fromToken.decimals).gt(state.fromToken.balance) ? (
                 <InsufficientBalanceButton symbol={state.fromSymbol} />
@@ -403,6 +446,7 @@ const SwapButton = ({ state, onError, disabled }: { state: SwapState; onError: (
             title={t("swap-", {
                 symbol: state.fromSymbol && state.toSymbol ? " " + state.fromSymbol + "-" + state.toSymbol : ""
             })}
+            style={{ borderRadius: 15 }}
             disabled={disabled}
             loading={state.swapping}
             onPress={onPress}
@@ -416,7 +460,7 @@ const WrapButton = ({ state, onError }: { state: SwapState; onError: (e) => void
         onError({});
         state.onWrap().catch(onError);
     }, []);
-    return <Button title={t("wrap")} loading={state.wrapping} onPress={onPress} />;
+    return <Button title={t("wrap")} loading={state.wrapping} onPress={onPress} style={{ borderRadius: 15 }} />;
 };
 
 const UnwrapButton = ({ state, onError }: { state: SwapState; onError: (e) => void }) => {
@@ -437,7 +481,7 @@ const LimitOrderInfo = ({ state }: { state: SwapState }) => {
                 disabled={isEmptyValue(state.limitOrderReturn)}
                 fontWeight={"bold"}
                 style={{ fontSize: 24, marginBottom: Spacing.normal }}>
-                {isEmptyValue(state.limitOrderReturn) ? "N/A" : state.limitOrderReturn + " " + state.toSymbol}
+                {isEmptyValue(state.limitOrderReturn) ? "---" : state.limitOrderReturn + " " + state.toSymbol}
             </Text>
             <Meta
                 label={t("market-price")}
@@ -447,7 +491,7 @@ const LimitOrderInfo = ({ state }: { state: SwapState }) => {
             />
             {/* <Meta label={t("relayer-fee-amount")} text={state.limitOrderFee} suffix={state.fromSymbol} disabled={d} /> */}
             <Meta label={t("swap-fee-amount")} text={state.limitOrderSwapFee} suffix={state.fromSymbol} disabled={d} />
-            <Meta label={t("expiration")} text={t("24-hours-from-now")} disabled={d} />
+            {/* <Meta label={t("expiration")} text={t("24-hours-from-now")} disabled={d} /> */}
             <LimitOrderControls state={state} />
         </View>
     );
@@ -480,14 +524,14 @@ const LimitOrderControls = ({ state }: { state: SwapState }) => {
         !state.trade ||
         isEmptyValue(state.limitOrderPrice);
     return (
-        <View style={{ marginTop: Spacing.normal }}>
+        <View style={{ marginTop: Spacing.normal, borderRadius: 15 }}>
             {disabled ? (
                 <PlaceOrderButton state={state} onError={setError} disabled={true} />
             ) : parseBalance(state.fromAmount, state.fromToken!.decimals).gt(state.fromToken!.balance) ? (
                 <InsufficientBalanceButton symbol={state.fromSymbol} />
             ) : !Fraction.parse(state.limitOrderPrice).gt(
-                  Fraction.parse(state.trade!.executionPrice.toFixed(state.toToken!.decimals))
-              ) ? (
+                Fraction.parse(state.trade!.executionPrice.toFixed(state.toToken!.decimals))
+            ) ? (
                 <PriceTooLowButton />
             ) : state.unsupported ? (
                 <UnsupportedButton state={state} />
@@ -518,7 +562,7 @@ const LimitOrderControls = ({ state }: { state: SwapState }) => {
 
 const PriceTooLowButton = () => {
     const t = useTranslation();
-    return <Button title={t("set-price-greater-than-market")} disabled={true} />;
+    return <Button title={t("set-price-greater-than-market")} disabled={true} style={{ borderRadius: 15 }} />;
 };
 
 const PlaceOrderButton = ({
@@ -532,7 +576,7 @@ const PlaceOrderButton = ({
 }) => {
     const { chainId } = useContext(EthersContext);
     const t = useTranslation();
-    const goToLimitOrders = useLinker("/swap/my-orders", "LimitOrders");
+    const goToLimitOrders = useLinker("/my-orders", "LimitOrders");
     // const goToLimitOrders = () => window.location.reload(); 
     const onPress = useCallback(async () => {
         onError({});
@@ -545,7 +589,7 @@ const PlaceOrderButton = ({
     }, [state.onCreateOrder, goToLimitOrders, onError]);
     if (!disabled && (chainId !== 88)) return <ChangeNetwork chainId={88} />;
     return (
-        <Button title={t("place-order")} disabled={disabled} loading={state.creatingOrder} onPress={onPress} />
+        <Button title={t("place-order")} disabled={disabled} loading={state.creatingOrder} onPress={onPress} style={{ borderRadius: 15 }} />
     );
 };
 

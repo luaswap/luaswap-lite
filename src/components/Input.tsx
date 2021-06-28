@@ -3,6 +3,7 @@ import { Platform } from "react-native";
 import { Input as NativeInput, InputProps as NativeInputProps } from "react-native-elements";
 
 import useColors from "../hooks/useColors";
+import useStyles from "../hooks/useStyles";
 
 export interface Validation {
     regexp: RegExp;
@@ -20,6 +21,7 @@ export interface InputProps extends NativeInputProps {
 // tslint:disable-next-line:max-func-body-length
 const Input: FC<InputProps> = props => {
     const { textDark, textMedium, textLight } = useColors();
+    const { border } = useStyles();
     const size = props.size || "normal";
     const color = props.color || textDark;
     const fontSize = size === "small" ? 16 : size === "large" ? 24 : 20;
@@ -52,7 +54,8 @@ const Input: FC<InputProps> = props => {
         <NativeInput
             {...props}
             inputStyle={[
-                { fontSize, fontFamily: "regular", paddingBottom: 4, color, marginTop: 0, minHeight: 32 },
+                border(),
+                { fontSize, fontFamily: "regular", paddingVertical: 10, color, marginTop: 0, minHeight: 32 },
                 // @ts-ignore
                 Platform.OS === "web" ? { outline: "none" } : {},
                 props.inputStyle

@@ -2,6 +2,7 @@
   "menu": {
     "home": "Inicio",
     "swap": "Intercambiar",
+    "portfolio": "Portafolio",
     "liquidity": "Liquidez",
     "migrate": "Emigrar",
     "stake": "Estacar",
@@ -29,10 +30,10 @@
   "token-to-buy": "Token para comprar",
   "amount": "La cantidad",
   "token-not-supported-in-beta": "Este token no es compatible con la versión beta..",
-  "maximum-allowed-amount-in-beta": "La cantidad máxima permitida en beta es {{amount}} {{symbol}} (≈ 10 ETH).",
+  "maximum-allowed-amount-in-beta": "La cantidad máxima permitida en beta es {{amount}} {{symbol}} (≈ 10 TOMO).",
   "minimum-price": "El precio mínimo",
   "-market-": "MERCADO",
-  "eth-not-supported-for-limit-orders": "⚠️ ETH no es compatible con órdenes limitadas. Utilice WETH en su lugar.",
+  "TOMO-not-supported-for-limit-orders": "⚠️ TOMO no es compatible con órdenes limitadas. Utilice WTOMO en su lugar.",
   "pair-not-created": "Aún no se ha creado el par {{fromSymbol}}-{{toSymbol}}.",
   "price": "El precio",
   "price-impact": "Impacto en el precio",
@@ -60,7 +61,7 @@
   "filled-tx-no": "# de TX lleno",
   "cancel-order": "Cancelar orden",
   "add-liquidity": "Agregar liquidez",
-  "add-liquidity-desc":"Agregue liquidez a un grupo y obtenga tokens LP del par.",
+  "add-liquidity-desc": "Agregue liquidez a un grupo y obtenga tokens LP del par.",
   "1-click-zap": "Zap con 1-clic",
   "1-click-zap-desc": "Agregue liquidez con 1 token en una sola transacción",
   "normal": "Normal",
@@ -132,6 +133,6 @@
   "already-added": "Ya añadido",
   "-add-": "AÑADIR",
   "not-supported": "No soportado",
-  "no-ethereum-provider-found": "No se encontró ningún proveedor de ethereum.",
+  "no-TOMOereum-provider-found": "No se encontró ningún proveedor de TOMOereum.",
   "connect": "Conectar"
 }

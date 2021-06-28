@@ -6,7 +6,7 @@ import Button from "./Button";
 
 const UnsupportedButton = ({ state }: { state: TokenPairState }) => {
     const t = useTranslation();
-    return <Button title={state.fromSymbol + "-" + state.toSymbol + " " + t("not-supported")} disabled={true} />;
+    return <Button title={state.fromSymbol + "-" + state.toSymbol + " " + t("not-supported")} disabled={true} style={{ borderRadius: 15 }} />;
 };
 
 export default UnsupportedButton;

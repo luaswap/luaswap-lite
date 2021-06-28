@@ -5,6 +5,6 @@ import Button from "./Button";
 
 const InsufficientBalanceButton = ({ symbol }: { symbol: string }) => {
     const t = useTranslation();
-    return <Button title={symbol ? t("insufficient-", { symbol }) : t("insufficient-balance")} disabled={true} />;
+    return <Button title={symbol ? t("insufficient-", { symbol }) : t("insufficient-balance")} disabled={true} style={{ borderRadius: 15 }} />;
 };
 export default InsufficientBalanceButton;

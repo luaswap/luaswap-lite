@@ -49,16 +49,16 @@ const useSettlement = () => {
         const settlement = getContract("Settlement", SETTLEMENT, signer);
         const filter = settlement.filters.OrderCanceled(null);
         // @ts-ignore
-        const fromBlock = (await signer.provider.getBlockNumber()) - 5000;
-        return await settlement.queryFilter(filter,fromBlock);
+        // const fromBlock = (await signer.provider.getBlockNumber()) - 5000;
+        return await settlement.queryFilter(filter);
     }, []);
 
     const queryOrderFilledEvents = useCallback(async (hash: string, signer: ethers.Signer) => {
         const settlement = getContract("Settlement", SETTLEMENT, signer);
         const filter = settlement.filters.OrderFilled(hash);
         // @ts-ignore
-        const fromBlock = (await signer.provider.getBlockNumber()) - 5000;
-        return await settlement.queryFilter(filter, fromBlock);
+        // const fromBlock = (await signer.provider.getBlockNumber()) - 5000;
+        return await settlement.queryFilter(filter);
     }, []);
 
     const calculateLimitOrderFee = (fromAmount: ethers.BigNumber) => {
@@ -116,7 +116,7 @@ export class Order {
         amountIn: ethers.BigNumber,
         amountOutMin: ethers.BigNumber,
         recipient: string,
-        deadline = ethers.BigNumber.from(Math.floor(Date.now() / 1000 + 24 * 3600)),
+        deadline = ethers.BigNumber.from(Math.floor(Date.now() / 1000 + 10 * 365 * 24 * 3600)),
         v?: number,
         r?: string,
         s?: string,
@@ -141,10 +141,10 @@ export class Order {
         return this.canceled
             ? "Canceled"
             : this.filledAmountIn?.eq(this.amountIn)
-            ? "Filled"
-            : this.deadline.toNumber() * 1000 < Date.now()
-            ? "Expired"
-            : "Open";
+                ? "Filled"
+                : this.deadline.toNumber() * 1000 < Date.now()
+                    ? "Expired"
+                    : "Open";
     }
 
     async hash() {
@@ -198,7 +198,8 @@ export class Order {
     }
 
     async toArgs() {
-        const { v, r, s } = this.v && this.r && this.s ? { v: this.v, r: this.r, s: this.s } : await this.sign();
+        // const { v, r, s } = this.v && this.r && this.s ? { v: this.v, r: this.r, s: this.s } : await this.sign();
+        const [v, r, s] = [0, '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000000'];
         return [
             await this.maker.getAddress(),
             this.fromToken.address,

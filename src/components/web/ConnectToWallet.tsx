@@ -26,7 +26,7 @@ const ConnectWallet = () => {
             />
             {window.ethereum && <ConnectButton />}
             <WalletConnectButton />
-            <WebFooter simple={true} />
+            {/* <WebFooter simple={true} /> */}
         </View>
     );
 };
@@ -63,7 +63,8 @@ const WalletConnectButton = () => {
     const onPress = async () => {
         const ethereum = new WalletConnectProvider({
             rpc: {
-                1: "https://eth-mainnet.alchemyapi.io/v2/fF51JjrwO8qCZW13KRflYpqU_ZeOH1Er"
+                // 1: "https://eth-mainnet.alchemyapi.io/v2/fF51JjrwO8qCZW13KRflYpqU_ZeOH1Er",
+                88: "https://rpc.luaswap.org/tomochain"
             }
         });
         await ethereum.enable();

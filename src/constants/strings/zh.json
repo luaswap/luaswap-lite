@@ -2,6 +2,7 @@
   "menu": {
     "home": "主页",
     "swap": "币币兑换",
+    "portfolio": "实时总价值",
     "liquidity": "提供流动性",
     "migrate": "迁移流动性",
     "stake": "质押分红",
@@ -29,10 +30,10 @@
   "token-to-buy": "购买代币",
   "amount": "数量",
   "token-not-supported-in-beta": "Beta版暂不支持此代币",
-  "maximum-allowed-amount-in-beta": "Beta版允许的最大金额为 {{amount}} {{symbol}}（≈10 ETH）.",
+  "maximum-allowed-amount-in-beta": "Beta版允许的最大金额为 {{amount}} {{symbol}}（≈10 TOMO）.",
   "minimum-price": "最低价格",
   "-market-": "市场价",
-  "eth-not-supported-for-limit-orders": "⚠️ 限价单不支持ETH 请改用WETH",
+  "TOMO-not-supported-for-limit-orders": "⚠️ 限价单不支持TOMO 请改用WTOMO",
   "pair-not-created": "{{fromSymbol}}-{{toSymbol}} 对尚未创建",
   "price": "价格",
   "price-impact": "价格冲击",
@@ -60,7 +61,7 @@
   "filled-tx-no": "已完成的交易",
   "cancel-order": "取消订单",
   "add-liquidity": "提供流动性",
-  "add-liquidity-desc":"提供流动性并获得对应LP凭证",
+  "add-liquidity-desc": "提供流动性并获得对应LP凭证",
   "1-click-zap": "一键模式",
   "1-click-zap-desc": "仅需提供一种代币",
   "normal": "一般模式",
@@ -132,6 +133,6 @@
   "already-added": "已添加",
   "-add-": "添加",
   "not-supported": "不支持",
-  "no-ethereum-provider-found": "找不到Ethereum提供者",
+  "no-TOMOereum-provider-found": "找不到TOMOereum提供者",
   "connect": "连接"
 }

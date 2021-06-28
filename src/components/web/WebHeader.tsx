@@ -57,7 +57,7 @@ export const Title = () => {
     return (
         <View style={{ alignSelf: "center" }}>
             <Link to={"/"} style={{ textDecoration: "none" }}>
-                <SvgLogo/>
+                <SvgLogo />
             </Link>
         </View>
     );
@@ -69,10 +69,10 @@ const Menu = () => {
         <FlexView
             style={{
                 height: "100%",
-                alignItems: "center"                
+                alignItems: "center"
             }}>
-            <MenuItem title={t("menu.home")} path={"/"} />
-            <MenuItem title={t("menu.swap")} path={"/swap"} />
+            <MenuItem title={t("menu.swap")} path={"/"} />
+            <MenuItem title={t("menu.portfolio")} path={"/portfolio"} />
             {/* <MenuItem title={t("menu.liquidity")} path={"/liquidity"} />
             <MenuItem title={t("menu.migrate")} path={"/migrate"} />
             <MenuItem title={t("menu.stake")} path={"/staking"} />
@@ -110,22 +110,26 @@ const MenuIcon = ({ onExpand }) => {
 const Status = () => {
     const t = useTranslation();
     const { textLight, green, borderDark } = useColors();
-    const { ethereum, chainId, address, ensName } = useContext(EthersContext);
+    const { ethereum, chainId, address, setEthereum } = useContext(EthersContext);
     const title = !!address
-        ? ensName || address!.substring(0, 6) + "..." + address!.substring(address!.length - 4, address!.length)
+        ? address!.substring(0, 6) + "..." + address!.substring(address!.length - 4, address!.length)
         : t("menu.not-connected");
     const color = (chainId === 88) ? green : chainId === 42 ? "#8A2BE2" : textLight;
     const onPress = () => {
-        if (confirm(t("do-you-want-to-disconnect"))) ethereum?.disconnect?.();
-    };
+        if (confirm(t("menu.do-you-want-to-disconnect"))) {
+            setEthereum(undefined)
+            ethereum?.disconnect?.()
+
+        }
+    }
     return (
-        <TouchableHighlight onPress={onPress} disabled={!ethereum?.isWalletConnect}>
+        <TouchableHighlight onPress={onPress} disabled={!address} style={{ marginLeft: Spacing.small, borderRadius: 50 }}>
             <FlexView
                 style={{
                     height: 28,
                     justifyContent: "center",
                     alignItems: "center",
-                    marginLeft: Spacing.small,
+                    // marginLeft: Spacing.small,
                     paddingHorizontal: Spacing.small,
                     borderRadius: 16,
                     borderWidth: 1,

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import * as Analytics from "expo-firebase-analytics";
+// import * as Analytics from "expo-firebase-analytics";
 
 import AsyncStorage from "@react-native-community/async-storage";
 import luaData from "../../lua-data.js";
@@ -27,26 +27,26 @@ export const KOVAN_PROVIDER = new ethers.providers.AlchemyProvider(
     __DEV__ ? process.env.KOVAN_API_KEY : "MOX3sLJxKwltJjW6XZ8aBtDpenq-18St"
 );
 
-export const TOMOCHAIN_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.tomochain.com', 88);
+export const TOMOCHAIN_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.luaswap.org/tomochain', 88);
 export const TOMOCHAIN_TESTNET_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc.testnet.tomochain.com', 89);
 export const BSC_MAINET_PROVIDER = new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org', 56);
 
 export const EthersContext = React.createContext({
     ethereum: undefined as Ethereum | undefined,
-    setEthereum: (_ethereum: Ethereum | undefined) => {},
+    setEthereum: (_ethereum: Ethereum | undefined) => { },
     provider: undefined as ethers.providers.JsonRpcProvider | undefined,
     signer: undefined as ethers.providers.JsonRpcSigner | undefined,
     chainId: 0,
     address: null as string | null,
     ensName: null as string | null,
-    addOnBlockListener: (_name: string, _listener: OnBlockListener) => {},
-    removeOnBlockListener: (_name: string) => {},
+    addOnBlockListener: (_name: string, _listener: OnBlockListener) => { },
+    removeOnBlockListener: (_name: string) => { },
     tokens: [TOMO] as TokenWithValue[],
-    updateTokens: async () => {},
+    updateTokens: async () => { },
     loadingTokens: false,
     customTokens: [TOMO] as Token[],
-    addCustomToken: (_token: Token) => {},
-    removeCustomToken: (_token: Token) => {},
+    addCustomToken: (_token: Token) => { },
+    removeCustomToken: (_token: Token) => { },
     approveToken: async (_token: string, _spender: string, _amount?: ethers.BigNumber) => {
         return {} as ethers.providers.TransactionResponse | undefined;
     },
@@ -74,9 +74,9 @@ export const EthersContextProvider = ({ children }) => {
     const [tokens, setTokens] = useState<TokenWithValue[]>([]);
     const [customTokens, setCustomTokens] = useState<Token[]>([]);
     const [loadingTokens, setLoadingTokens] = useState(true);
-
     useAsyncEffect(async () => {
         // Mainnet
+
         if (ethereum) {
             const web3 = new ethers.providers.Web3Provider(ethereum);
             const web3Signer = await web3.getSigner();
@@ -91,7 +91,7 @@ export const EthersContextProvider = ({ children }) => {
                 const accounts = await ethereum.request({ method: "eth_accounts" });
                 if (accounts?.[0]) {
                     setAddress(accounts[0]);
-                    Analytics.setUserId(accounts[0]);
+                    // Analytics.setUserId(accounts[0]);
                 } else {
                     setAddress(null);
                 }
@@ -113,21 +113,23 @@ export const EthersContextProvider = ({ children }) => {
             //     ethereum.off("chainChanged", onAccountsChanged);
             //     ethereum.off("disconnect", onDisconnect);
             // };
+        } else {
+            setAddress(null);
         }
-    }, [ethereum]);
+    }, [ethereum, setAddress]);
 
     useAsyncEffect(async () => {
         if (provider && address) {
             switch (chainId) {
-                case 1: 
+                case 1:
                     let ens1 = await ALCHEMY_PROVIDER.lookupAddress(address)
                     setENSName(ens1)
                     break
-                case 88: 
+                case 88:
                     // let ens2 = await TOMOCHAIN_MAINET_PROVIDER.lookupAddress(address)
                     // setENSName(ens2)
                     break
-                case 56: 
+                case 56:
                     // let ens3 = await TOMOCHAIN_MAINET_PROVIDER.lookupAddress(address)
                     // setENSName(ens3)
                     break

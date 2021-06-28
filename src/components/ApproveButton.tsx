@@ -43,6 +43,7 @@ const ApproveButton: FC<ApproveButtonProps> = props => {
             onPress={onPress}
             loading={loading}
             containerStyle={{ marginBottom: Spacing.tiny }}
+            style={{ borderRadius: 15 }}
         />
     );
 };

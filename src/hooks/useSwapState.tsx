@@ -3,14 +3,15 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { Trade } from "@luaswap/sdk";
 import useAsyncEffect from "use-async-effect";
 import Fraction from "../constants/Fraction";
-import { ALCHEMY_PROVIDER, TOMOCHAIN_MAINET_PROVIDER, EthersContext } from "../context/EthersContext";
-import { formatBalance, isEmptyValue, isNativeToken, parseBalance, pow10 } from "../utils";
+import { TOMOCHAIN_MAINET_PROVIDER, EthersContext } from "../context/EthersContext";
+import { getContract, formatBalance, isEmptyValue, isNativeToken, parseBalance, pow10 } from "../utils";
 import useDelayedEffect from "./useDelayedEffect";
 import useDelayedOnBlockEffect from "./useDelayedOnBlockEffect";
 import useSDK from "./useSDK";
 import useSettlement from "./useSettlement";
 import useSwapRouter from "./useSwapRouter";
 import useTokenPairState, { TokenPairState } from "./useTokenPairState";
+import { BigNumber } from "@ethersproject/bignumber";
 
 export type OrderType = "market" | "limit";
 
@@ -30,6 +31,7 @@ export interface SwapState extends TokenPairState {
     swapping: boolean;
     onCreateOrder: () => Promise<void>;
     creatingOrder: boolean;
+    trc21Fee?: BigNumber
 }
 
 // tslint:disable-next-line:max-func-body-length
@@ -51,6 +53,7 @@ const useSwapState: () => SwapState = () => {
     const [limitOrderReturn, setLimitOrderReturn] = useState("");
     const [swapping, setSwapping] = useState(false);
     const [creatingOrder, setCreatingOrder] = useState(false);
+    const [trc21Fee, setTrc21Fee] = useState();
 
     useEffect(() => {
         if (!orderType) {
@@ -127,6 +130,22 @@ const useSwapState: () => SwapState = () => {
         }
     }, [state.fromToken, state.toToken, state.fromAmount, limitOrderPrice]);
 
+    useAsyncEffect(
+        async () => {
+            if (state.fromToken) {
+                const currencyAContract = getContract("TRC21", state.fromToken.address, TOMOCHAIN_MAINET_PROVIDER)
+                try {
+                    const fee = await currencyAContract.minFee()
+                    setTrc21Fee(fee)
+                }
+                catch (error) {
+                    setTrc21Fee(undefined)
+                }
+            }
+        },
+        [state.fromToken]
+    );
+
     const onSwap = useCallback(async () => {
         if (state.fromToken && state.toToken && state.fromAmount && signer && trade) {
             setSwapping(true);
@@ -185,7 +204,8 @@ const useSwapState: () => SwapState = () => {
         swapping,
         limitOrderUnsupported: orderType === "limit" && (isNativeToken(state.fromToken) || isNativeToken(state.toToken)),
         onCreateOrder,
-        creatingOrder
+        creatingOrder,
+        trc21Fee
     };
 };
 

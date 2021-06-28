@@ -7,7 +7,7 @@ const Container: FC<ContainerProps> = props => {
     return Platform.select({
         web: (
             <ScrollView
-                contentContainerStyle={{ flex: 1 }}
+                contentContainerStyle={{ flex: 1, minHeight: "auto" }}
                 style={[
                     {
                         flex: 1
@@ -18,7 +18,7 @@ const Container: FC<ContainerProps> = props => {
             />
         ),
         default: (
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1, minHeight: "auto" }}>
                 <ScrollView {...props} />
             </SafeAreaView>
         )
