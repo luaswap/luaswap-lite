@@ -49,7 +49,7 @@ export const fetchTokens = async (provider: ethers.providers.BaseProvider, accou
                 "symbol": "BTC",
                 "decimals": 8,
                 "chainId": 88,
-                "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"
+                "logoURI": "https://raw.githubusercontent.com/tomochain/tokens/master/tokens/0x503b2ddc059b81788fd1239561596614b27faade.png"
             },
             {
                 "name": "Wrapped Ether",
